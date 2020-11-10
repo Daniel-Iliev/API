@@ -9,6 +9,8 @@ namespace Data.Models.Models
 {
     public class Order : BaseModel
     {
-
+        public string BuyerId { get; set; }
+        public Buyer Buyer { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }
