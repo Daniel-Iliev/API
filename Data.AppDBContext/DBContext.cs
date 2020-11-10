@@ -24,13 +24,16 @@ namespace Data.AppDBContext
 
         public virtual DbSet<Order> Orders { get; set; }
 
-        private IConfigurationRoot configurationRoot;
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
-            dbContextOptionsBuilder.UseSqlServer("Server=localhost;Initial Catalog=MusicApi;Trusted_Connection=true;");
+            dbContextOptionsBuilder.UseSqlServer(@"Data Source=DOGRAMA\DANIEL;Initial Catalog=MusicApi;Integrated Security=True");
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>().HasKey(x => new { x.ProductId, x.BuyerId });
 
+        }
     }
 }

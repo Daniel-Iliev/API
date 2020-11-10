@@ -11,6 +11,7 @@ namespace Data.Models.Models
     {
         public string BuyerId { get; set; }
         public Buyer Buyer { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public string ProductId { get; set; }
+        public Product Product { get; set; }
     }
 }

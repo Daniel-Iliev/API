@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{FAC89BF5-E7FC-40EF-A971-3BA60BBDAE79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.AppDBContext", "Data.AppDBContext\Data.AppDBContext.csproj", "{B528156F-739C-4DC7-AEC8-CCEB556D20B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.AppDBContext", "Data.AppDBContext\Data.AppDBContext.csproj", "{B528156F-739C-4DC7-AEC8-CCEB556D20B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Models", "Data.Models\Data.Models.csproj", "{B2DEC0AB-FC2A-49B4-B458-B866D97E2746}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Models", "Data.Models\Data.Models.csproj", "{B2DEC0AB-FC2A-49B4-B458-B866D97E2746}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Repositories", "Data.Repositories\Data.Repositories.csproj", "{D39A8CBF-48B1-4A56-A790-5EE7FFF456C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Repositories", "Data.Repositories\Data.Repositories.csproj", "{D39A8CBF-48B1-4A56-A790-5EE7FFF456C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{E5FDA1D9-E83D-42B1-960A-37F3DE96390C}"
 EndProject
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FAC89BF5-E7FC-40EF-A971-3BA60BBDAE79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAC89BF5-E7FC-40EF-A971-3BA60BBDAE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAC89BF5-E7FC-40EF-A971-3BA60BBDAE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAC89BF5-E7FC-40EF-A971-3BA60BBDAE79}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B528156F-739C-4DC7-AEC8-CCEB556D20B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B528156F-739C-4DC7-AEC8-CCEB556D20B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B528156F-739C-4DC7-AEC8-CCEB556D20B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
