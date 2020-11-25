@@ -4,14 +4,16 @@ using Data.AppDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.AppDBContext.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20201118082234_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,9 +105,6 @@ namespace Data.AppDBContext.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AlbumId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -119,8 +118,6 @@ namespace Data.AppDBContext.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AlbumId");
 
                     b.ToTable("Performers");
                 });
@@ -212,13 +209,6 @@ namespace Data.AppDBContext.Migrations
                     b.HasOne("Data.Models.Models.Buyer", "Buyer")
                         .WithMany("Orders")
                         .HasForeignKey("BuyerId");
-                });
-
-            modelBuilder.Entity("Data.Models.Models.Performer", b =>
-                {
-                    b.HasOne("Data.Models.Models.Album", null)
-                        .WithMany("Performers")
-                        .HasForeignKey("AlbumId");
                 });
 
             modelBuilder.Entity("Data.Models.Models.Product", b =>

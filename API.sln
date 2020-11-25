@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.AppDBContext", "Data.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Models", "Data.Models\Data.Models.csproj", "{B2DEC0AB-FC2A-49B4-B458-B866D97E2746}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Repositories", "Data.Repositories\Data.Repositories.csproj", "{D39A8CBF-48B1-4A56-A790-5EE7FFF456C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Services", "Data.Repositories\Data.Services.csproj", "{D39A8CBF-48B1-4A56-A790-5EE7FFF456C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{E5FDA1D9-E83D-42B1-960A-37F3DE96390C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicAPI", "MusicAPI\MusicAPI.csproj", "{793A77A3-FF36-4317-AEDD-9FE5830E385E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{D39A8CBF-48B1-4A56-A790-5EE7FFF456C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D39A8CBF-48B1-4A56-A790-5EE7FFF456C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D39A8CBF-48B1-4A56-A790-5EE7FFF456C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{793A77A3-FF36-4317-AEDD-9FE5830E385E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{793A77A3-FF36-4317-AEDD-9FE5830E385E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{793A77A3-FF36-4317-AEDD-9FE5830E385E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{793A77A3-FF36-4317-AEDD-9FE5830E385E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

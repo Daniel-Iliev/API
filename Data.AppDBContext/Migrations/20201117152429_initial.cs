@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.AppDBContext.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -84,6 +84,27 @@ namespace Data.AppDBContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    ModifiedAt = table.Column<DateTime>(nullable: true),
+                    DeletedAt = table.Column<DateTime>(nullable: true),
+                    BuyerId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Buyer_BuyerId",
+                        column: x => x.BuyerId,
+                        principalTable: "Buyer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -93,7 +114,8 @@ namespace Data.AppDBContext.Migrations
                     DeletedAt = table.Column<DateTime>(nullable: true),
                     ProdName = table.Column<string>(maxLength: 50, nullable: true),
                     ProdPrice = table.Column<decimal>(nullable: false),
-                    AlbumId = table.Column<string>(nullable: true)
+                    AlbumId = table.Column<string>(nullable: true),
+                    OrderId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -104,34 +126,12 @@ namespace Data.AppDBContext.Migrations
                         principalTable: "Albums",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    BuyerId = table.Column<string>(nullable: false),
-                    ProductId = table.Column<string>(nullable: false),
-                    Id = table.Column<string>(nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    ModifiedAt = table.Column<DateTime>(nullable: true),
-                    DeletedAt = table.Column<DateTime>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => new { x.ProductId, x.BuyerId });
                     table.ForeignKey(
-                        name: "FK_Orders_Buyer_BuyerId",
-                        column: x => x.BuyerId,
-                        principalTable: "Buyer",
+                        name: "FK_Products_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Orders_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -153,27 +153,32 @@ namespace Data.AppDBContext.Migrations
                 name: "IX_Products_AlbumId",
                 table: "Products",
                 column: "AlbumId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_OrderId",
+                table: "Products",
+                column: "OrderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "Buyer");
-
-            migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Albums");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
                 name: "Performers");
+
+            migrationBuilder.DropTable(
+                name: "Buyer");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

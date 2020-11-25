@@ -16,6 +16,5 @@ namespace Data.Models.Models
         public string ProdName { get; set; }
         [Required]
         public decimal ProdPrice { get; set; }
-        public ICollection<Order> Orders { get; set; }
     }
 }

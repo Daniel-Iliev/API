@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.AppDBContext.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20201110173525_Initial")]
-    partial class Initial
+    [Migration("20201117152429_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,7 +78,7 @@ namespace Data.AppDBContext.Migrations
 
             modelBuilder.Entity("Data.Models.Models.Order", b =>
                 {
-                    b.Property<string>("ProductId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BuyerId")
@@ -90,13 +90,10 @@ namespace Data.AppDBContext.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ProductId", "BuyerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BuyerId");
 
@@ -142,6 +139,9 @@ namespace Data.AppDBContext.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("OrderId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ProdName")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
@@ -152,6 +152,8 @@ namespace Data.AppDBContext.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AlbumId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Products");
                 });
@@ -206,15 +208,7 @@ namespace Data.AppDBContext.Migrations
                 {
                     b.HasOne("Data.Models.Models.Buyer", "Buyer")
                         .WithMany("Orders")
-                        .HasForeignKey("BuyerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data.Models.Models.Product", "Product")
-                        .WithMany("Orders")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BuyerId");
                 });
 
             modelBuilder.Entity("Data.Models.Models.Product", b =>
@@ -222,6 +216,10 @@ namespace Data.AppDBContext.Migrations
                     b.HasOne("Data.Models.Models.Album", null)
                         .WithMany("Products")
                         .HasForeignKey("AlbumId");
+
+                    b.HasOne("Data.Models.Models.Order", null)
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId");
                 });
 #pragma warning restore 612, 618
         }
