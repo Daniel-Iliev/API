@@ -1,7 +1,6 @@
 ﻿using Data.Models.Abstraction;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Data.AppDBContext.Repositories.Interfaces
 {

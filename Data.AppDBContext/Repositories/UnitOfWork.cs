@@ -4,11 +4,9 @@ using Data.Models.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
-
 namespace Data.AppDBContext.Repositories
 {
-    public class UnitOfWork:IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private Dictionary<Type, object> repositories;
         private DbContext Context;
@@ -24,18 +22,17 @@ namespace Data.AppDBContext.Repositories
                 return this.CreateInstance<User>();
             }
         }
-        public IRepository<Product> Products
+        public IRepository<Song> Songs
         {
             get
             {
-                return this.CreateInstance<Product>();
+                return this.CreateInstance<Song>();
             }
         }
 
-        public IRepository<Buyer> Buyers => throw new NotImplementedException();
-
-        public IRepository<Order> Orders => throw new NotImplementedException();
         public IRepository<Album> Albums => throw new NotImplementedException();
+
+        public IRepository<Genre> Genres => throw new NotImplementedException();
         public IRepository<Performer> Performers => throw new NotImplementedException();
         private IRepository<T> CreateInstance<T>() where T : BaseModel, new()
         {

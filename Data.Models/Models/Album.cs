@@ -1,18 +1,18 @@
 ﻿using Data.Models.Abstraction;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Models.Models
 {
     public class Album : BaseModel
     {
+
         public string Name { get; set; }
 
-        public ICollection<Product> Products { get; set; }
-        public ICollection<Performer> Performers { get; set; }
+        public int YearReleased { get; set; }
 
+        public ICollection<Song> Songs { get; set; }
+        public ICollection<AlbumGenre> AlbumGenres { get; set; }
+        public string PerformerId { get; set; }
+        public Performer Performer { get; set; }
     }
 }
