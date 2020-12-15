@@ -21,11 +21,11 @@ namespace MusicAPI.Controllers
             _service = service;
 
         }
+        [Route("getall")]
         [HttpGet]
         public IActionResult GetAll()
         {
-            var res = _configuration.GetSection("Test").Value;
-            return Ok(res);
+            return Ok(_service.GetAll());
         }
         [Route("getfirst")]
         [HttpGet]
