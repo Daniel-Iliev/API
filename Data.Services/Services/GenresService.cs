@@ -1,4 +1,5 @@
 ﻿using Data.AppDBContext;
+using Data.Models.Models;
 using Data.Services.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,17 +23,15 @@ namespace Data.Services.Services
             using (applicationDb)
             {
 
-                var genres = applicationDb.AlbumGenres
-                    .Include(x => x.Album)
-                    .Include(x => x.Genre)
-                    .Where(x => x.GenreId == x.Genre.Id)
+                var genres = applicationDb.Genres
+                    .Include(x => x.AlbumGenres)
+                    .ThenInclude(x => x.Album)
                     .Select(x => new GenreDto()
                     {
-                        Name = x.Genre.Name,
-
-                    })
-
-                    .ToList();
+                        Name = x.Name,
+                        Albums = x.AlbumGenres.Select(z=>z.Album.Name).ToList()
+                    }).ToList();
+                   
                     
                     
                 return (genres);

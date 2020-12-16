@@ -21,12 +21,13 @@ namespace Data.Services.Services
             {
                 var albums = applicationDb.Albums
                     .Include(x => x.AlbumGenres)
+                    .ThenInclude(x=>x.Genre)
                     .Select(x => new AlbumDto()
                     {
                         Name = x.Name,
                         YearReleased = x.YearReleased,
                         SongsCount = x.Songs.Count(),
-                        Genre = x.AlbumGenres.ToString()
+                        Genres = x.AlbumGenres.Select(z=>z.Genre.Name).ToList()
 
                     }).ToList();
                 return (albums);
