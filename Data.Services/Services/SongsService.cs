@@ -1,7 +1,9 @@
 ﻿using Data.AppDBContext;
 using Data.Services.Dto;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Data.Services.Services
 {
@@ -17,11 +19,19 @@ namespace Data.Services.Services
         {
             using (applicationDb)
             {
-                return applicationDb.Songs.Select(x => new SongDto()
+                var songs = applicationDb.Songs
+                    .Include(x=>x.Album)
+                    .Include(x=>x.Album.Performer)
+                    .Select(x=>new SongDto()
                 {
-                    Name = x.Name
+                    Name = x.Name,
+                    AlbumName = x.Album.Name,
+                    PerformerName = x.Album.Performer.Name,
+                    YearReleased = x.Album.YearReleased
+                    
 
                 }).ToList();
+                return (songs);
             }
         }
         

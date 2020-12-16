@@ -45,6 +45,9 @@ namespace MusicAPI
             services.AddScoped<DBContext>();
             services.AddSwaggerGen();
             services.AddScoped<SongsService>();
+            services.AddScoped<AlbumsService>();
+            services.AddScoped<PerformersService>();
+            services.AddScoped<GenresService>();
         }
 
 

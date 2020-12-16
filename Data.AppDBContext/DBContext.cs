@@ -155,6 +155,13 @@ namespace Data.AppDBContext
                     AlbumId=albums[0].Id,
 
                 },
+                   new Song()
+                {
+                     Id = Guid.NewGuid().ToString(),
+                    Name ="Battery",
+                    AlbumId=albums[1].Id,
+
+                },
             };
             List<Genre> genres = new List<Genre>()
             {

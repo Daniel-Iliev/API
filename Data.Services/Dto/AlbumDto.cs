@@ -4,6 +4,8 @@
     {
         public string Name { get; set; }
         public int YearReleased { get; set; }
+        public string Genre { get; set; }
+        public int SongsCount { get; set; }
 
     }
 }
