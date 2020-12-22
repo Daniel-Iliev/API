@@ -22,22 +22,21 @@ namespace Data.Services.Services
         {
             using (applicationDb)
             {
-                var performers = applicationDb.PerformerAlbums
-                    .Include(x => x.Album)
-                    .Include(x => x.Performer)
-                    .Where(x=>x.Album.PerformerId==x.Performer.Id)
+                var performers = applicationDb.Performers
+                    .Include(x => x.Songs)
+                    .Include(x => x.Albums)
                     .Select(x => new PerformerDto()
                     {
-                        
-                        Name = x.Performer.Name,
-                        AlbumsCount = x.Performer.PerformerAlbums.Count(),
-                        SongsCount = x.Album.Songs.Count(),
-                        
-                    }).Distinct()
-                    
-                    .ToList();
+
+                        Name = x.Name,
+                        Albums = x.Albums.Select(z => z.Name).ToList(),
+                        Songs = x.Songs.Select(z => z.Name).ToList(),
+                        AddedOn = x.CreatedAt.Date.ToShortDateString()
+                    }).ToList();
                 return (performers);
             }
         }
+       
+
     }
 }

@@ -48,6 +48,7 @@ namespace MusicAPI
             services.AddScoped<AlbumsService>();
             services.AddScoped<PerformersService>();
             services.AddScoped<GenresService>();
+            services.AddScoped<UsersService>();
         }
 
 

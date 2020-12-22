@@ -32,9 +32,6 @@ namespace Data.AppDBContext
         public virtual DbSet<Favourite> Favourites { get; set; }
 
 
-        public virtual DbSet<PerformerAlbum> PerformerAlbums { get; set; }
-
-
         public virtual DbSet<Genre> Genres { get; set; }
 
 
@@ -45,6 +42,13 @@ namespace Data.AppDBContext
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Album>().HasMany(album => album.Songs);
+            modelBuilder.Entity<Album>().HasMany(album => album.AlbumGenres);
+            modelBuilder.Entity<Genre>().HasMany(genre => genre.AlbumGenres);
+            modelBuilder.Entity<Performer>().HasMany(performer => performer.Albums);
+            modelBuilder.Entity<Performer>().HasMany(performer => performer.Songs);
+            modelBuilder.Entity<Song>().HasMany(song => song.Favourites);
+            modelBuilder.Entity<User>().HasMany(user => user.Favourites);
             List<User> users = new List<User>()
             {
                 new User()
@@ -52,21 +56,24 @@ namespace Data.AppDBContext
                     Id=Guid.NewGuid().ToString(),
                     Username="George",
                     Password="123",
-                    Email = "george@123.bg"
+                    Email = "george@123.bg",
+                    CreatedAt=DateTime.Now
                 },
                 new User()
                 {
                     Id=Guid.NewGuid().ToString(),
                     Username="Martin",
                      Password="123",
-                     Email = "martin@123.bg"
+                     Email = "martin@123.bg",
+                    CreatedAt=DateTime.Now
                 },
                 new User()
                 {
                     Id=Guid.NewGuid().ToString(),
                     Username="Jake",
                      Password="123",
-                     Email = "jake@123.bg"
+                     Email = "jake@123.bg",
+                    CreatedAt=DateTime.Now
                 }
             };
             List<Performer> performers = new List<Performer>()
@@ -97,7 +104,7 @@ namespace Data.AppDBContext
                      Id = Guid.NewGuid().ToString(),
                      Name = "Ride The Lightning",
                      YearReleased = 1984,
-                     PerformerId = performers[0].Id,
+                     PerformerId=performers[0].Id,
                      CreatedAt = DateTime.Now
                 },
                  new Album
@@ -105,7 +112,7 @@ namespace Data.AppDBContext
                      Id = Guid.NewGuid().ToString(),
                      Name = "Master Of Puppets",
                      YearReleased = 1986,
-                     PerformerId = performers[0].Id,
+                     PerformerId=performers[0].Id,
                      CreatedAt = DateTime.Now
                 },
                   new Album
@@ -113,7 +120,7 @@ namespace Data.AppDBContext
                      Id = Guid.NewGuid().ToString(),
                      Name = "Fear Of The Dark",
                      YearReleased = 1992,
-                     PerformerId = performers[1].Id,
+                     PerformerId=performers[1].Id,
                      CreatedAt = DateTime.Now
                 },
                    new Album
@@ -121,7 +128,7 @@ namespace Data.AppDBContext
                      Id = Guid.NewGuid().ToString(),
                      Name = "Meteora",
                      YearReleased = 2003,
-                     PerformerId = performers[2].Id,
+                     PerformerId=performers[2].Id,
                      CreatedAt = DateTime.Now
                 },
             };
@@ -132,6 +139,8 @@ namespace Data.AppDBContext
                      Id = Guid.NewGuid().ToString(),
                     Name ="Master Of Puppets",
                     AlbumId=albums[1].Id,
+                    PerformerId = performers[0].Id,
+                    CreatedAt = DateTime.Now
 
                 },
                  new Song()
@@ -139,6 +148,8 @@ namespace Data.AppDBContext
                       Id = Guid.NewGuid().ToString(),
                     Name ="Numb",
                     AlbumId=albums[3].Id,
+                    PerformerId = performers[2].Id,
+                    CreatedAt = DateTime.Now
 
                 },
                  new Song()
@@ -146,6 +157,8 @@ namespace Data.AppDBContext
                       Id = Guid.NewGuid().ToString(),
                     Name ="Fear Of The Dark",
                     AlbumId=albums[2].Id,
+                    PerformerId = performers[1].Id,
+                    CreatedAt = DateTime.Now
 
                 },
                   new Song()
@@ -153,6 +166,8 @@ namespace Data.AppDBContext
                        Id = Guid.NewGuid().ToString(),
                     Name ="For Whom The Bell Tolls",
                     AlbumId=albums[0].Id,
+                    PerformerId = performers[0].Id,
+                    CreatedAt = DateTime.Now
 
                 },
                    new Song()
@@ -160,6 +175,8 @@ namespace Data.AppDBContext
                      Id = Guid.NewGuid().ToString(),
                     Name ="Battery",
                     AlbumId=albums[1].Id,
+                    PerformerId = performers[0].Id,
+                    CreatedAt = DateTime.Now
 
                 },
             };
@@ -168,17 +185,20 @@ namespace Data.AppDBContext
                 new Genre()
                 {
                      Id = Guid.NewGuid().ToString(),
-                    Name = "Metal"
+                    Name = "Metal",
+                     CreatedAt = DateTime.Now
                 },
                 new Genre()
                 {
                      Id = Guid.NewGuid().ToString(),
-                    Name = "Nu-Metal"
+                    Name = "Nu-Metal",
+                     CreatedAt = DateTime.Now
                 },
                 new Genre()
                 {
                      Id = Guid.NewGuid().ToString(),
-                    Name = "Rock"
+                    Name = "Rock",
+                     CreatedAt = DateTime.Now
                 },
             };
             List<AlbumGenre> albumGenres = new List<AlbumGenre>()
@@ -209,73 +229,59 @@ namespace Data.AppDBContext
                 new Favourite()
                 {
                    SongId = songs[0].Id,
-                   UserId = users[0].Id
+                   UserId = users[0].Id,
+                     CreatedAt = DateTime.Now
                 },
                 new Favourite()
                 {
                    SongId = songs[0].Id,
-                   UserId = users[1].Id
+                   UserId = users[1].Id,
+                     CreatedAt = DateTime.Now
                 },
                  new Favourite()
                 {
                    SongId = songs[1].Id,
-                   UserId = users[0].Id
+                   UserId = users[0].Id,
+                     CreatedAt = DateTime.Now
                 },
                   new Favourite()
                 {
                    SongId = songs[1].Id,
-                   UserId = users[2].Id
+                   UserId = users[2].Id,
+                     CreatedAt = DateTime.Now
                 },
                    new Favourite()
                 {
                    SongId = songs[2].Id,
-                   UserId = users[1].Id
+                   UserId = users[1].Id,
+                     CreatedAt = DateTime.Now
                 },
                     new Favourite()
                 {
                    SongId = songs[3].Id,
-                   UserId = users[0].Id
+                   UserId = users[0].Id,
+                     CreatedAt = DateTime.Now
                 },
                      new Favourite()
                 {
                    SongId = songs[3].Id,
-                   UserId = users[1].Id
+                   UserId = users[1].Id,
+                     CreatedAt = DateTime.Now
                 },
                       new Favourite()
                 {
                    SongId = songs[3].Id,
-                   UserId = users[2].Id
+                   UserId = users[2].Id,
+                     CreatedAt = DateTime.Now
                 },
             };
-            List<PerformerAlbum> performerAlbums = new List<PerformerAlbum>()
-            {
-                new PerformerAlbum()
-                {
-                   AlbumId = albums[0].Id,
-                   PerformerId = performers[0].Id
-                },
-                 new PerformerAlbum()
-                {
-                   AlbumId = albums[1].Id,
-                   PerformerId = performers[0].Id
-                },
-                  new PerformerAlbum()
-                {
-                   AlbumId = albums[2].Id,
-                   PerformerId = performers[1].Id
-                },
-                   new PerformerAlbum()
-                {
-                   AlbumId = albums[3].Id,
-                   PerformerId = performers[2].Id
-                },
-            };
+           
+            
             modelBuilder.Entity<Album>().HasData(albums);
             modelBuilder.Entity<AlbumGenre>().HasData(albumGenres);
             modelBuilder.Entity<Favourite>().HasData(favourites);
             modelBuilder.Entity<Genre>().HasData(genres);
             modelBuilder.Entity<Performer>().HasData(performers);
-            modelBuilder.Entity<PerformerAlbum>().HasData(performerAlbums);
             modelBuilder.Entity<Song>().HasData(songs);
             modelBuilder.Entity<User>().HasData(users);
             base.OnModelCreating(modelBuilder);

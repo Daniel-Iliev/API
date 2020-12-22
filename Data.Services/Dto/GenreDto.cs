@@ -11,5 +11,6 @@ namespace Data.Services.Dto
         public string Name { get; set; }
         
         public List<string> Albums { get; set; }
+        public string AddedOn { get; set; }
     }
 }

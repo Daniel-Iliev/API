@@ -2,7 +2,7 @@
 
 namespace Data.Models.Models
 {
-    public class AlbumGenre : BaseModel
+    public class AlbumGenre : BaseRelationModel
     {
         public string AlbumId { get; set; }
         public Album Album { get; set; }

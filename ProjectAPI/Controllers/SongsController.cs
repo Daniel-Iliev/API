@@ -27,12 +27,19 @@ namespace MusicAPI.Controllers
         {
             return Ok(_service.GetAll());
         }
-        [Route("getfirst")]
+        [Route("getsongsofbyyear")]
         [HttpGet]
-        public IActionResult GetFirst()
+        public IActionResult GetSongsOfByYear(string perfName,int year)
         {
-            return Ok("first");
+            return Ok(_service.GetSongsOfByYear(perfName,year));
         }
-       
+        [Route("GetMostFavourited")]
+        [HttpGet]
+        
+            public IActionResult GetMostFavourited()
+        {
+            return Ok(_service.GetMostFavourited());
+        }
+
     }
 }

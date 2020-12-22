@@ -51,34 +51,34 @@ namespace Data.AppDBContext.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eb4e9469-92dd-4ee5-9090-8461befe87e6",
-                            CreatedAt = new DateTime(2020, 12, 16, 9, 57, 7, 409, DateTimeKind.Local).AddTicks(942),
+                            Id = "cf06aabe-df44-4c17-8de4-f87368733656",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(5730),
                             Name = "Ride The Lightning",
-                            PerformerId = "fad20c72-cb3c-4ac8-88c6-66d14768830d",
+                            PerformerId = "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9",
                             YearReleased = 1984
                         },
                         new
                         {
-                            Id = "026c4bfe-14e3-4415-a4f7-47006bc03dc4",
-                            CreatedAt = new DateTime(2020, 12, 16, 9, 57, 7, 409, DateTimeKind.Local).AddTicks(1034),
+                            Id = "7e5f4498-51a7-4653-85ae-39ba39d449e1",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(5818),
                             Name = "Master Of Puppets",
-                            PerformerId = "fad20c72-cb3c-4ac8-88c6-66d14768830d",
+                            PerformerId = "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9",
                             YearReleased = 1986
                         },
                         new
                         {
-                            Id = "f1270228-d5de-4268-bdd0-cf5116ca8dea",
-                            CreatedAt = new DateTime(2020, 12, 16, 9, 57, 7, 409, DateTimeKind.Local).AddTicks(1045),
+                            Id = "7a63fdb1-fa1c-4dce-a683-002b5da32997",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(5829),
                             Name = "Fear Of The Dark",
-                            PerformerId = "f8829c40-1269-4354-af8a-5c4a9dc485f6",
+                            PerformerId = "666ca2a8-87db-488b-8432-05a748353866",
                             YearReleased = 1992
                         },
                         new
                         {
-                            Id = "a671573d-5720-4675-8b7d-5ac49cdb73ae",
-                            CreatedAt = new DateTime(2020, 12, 16, 9, 57, 7, 409, DateTimeKind.Local).AddTicks(1051),
+                            Id = "13e5d71d-5d4d-4f8c-8181-afba15f9ff60",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(5835),
                             Name = "Meteora",
-                            PerformerId = "3c141ed5-dd3b-482f-afa2-cf43d24f21a3",
+                            PerformerId = "878d9df9-1f37-4c6e-9a6a-fc8ac94a91ce",
                             YearReleased = 2003
                         });
                 });
@@ -91,17 +91,8 @@ namespace Data.AppDBContext.Migrations
                     b.Property<string>("AlbumId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("GenreId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -114,31 +105,27 @@ namespace Data.AppDBContext.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5058c802-2e65-4df2-8935-08c1c49f90dd",
-                            AlbumId = "eb4e9469-92dd-4ee5-9090-8461befe87e6",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = "41809a39-4915-4d18-93f2-72be8bf47dd4"
+                            Id = "7a5bbdde-adb9-487c-bb3e-af54826bb752",
+                            AlbumId = "cf06aabe-df44-4c17-8de4-f87368733656",
+                            GenreId = "db9aba26-0d2c-4fcf-92a8-78a81bad748c"
                         },
                         new
                         {
-                            Id = "51ae8d68-ca16-41f5-9c5f-5af8943a8379",
-                            AlbumId = "026c4bfe-14e3-4415-a4f7-47006bc03dc4",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = "e7408c1a-07d3-45c7-a24a-efb0aae76fe1"
+                            Id = "747c6dcd-9882-45f9-ac92-fc24d334c91d",
+                            AlbumId = "7e5f4498-51a7-4653-85ae-39ba39d449e1",
+                            GenreId = "d4b0affc-615a-4ca1-8933-6d04584019ce"
                         },
                         new
                         {
-                            Id = "030c10b4-1161-436c-bb75-36abff240ca7",
-                            AlbumId = "f1270228-d5de-4268-bdd0-cf5116ca8dea",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = "41809a39-4915-4d18-93f2-72be8bf47dd4"
+                            Id = "f9049eab-121b-4828-998a-5dc47df6c2f4",
+                            AlbumId = "7a63fdb1-fa1c-4dce-a683-002b5da32997",
+                            GenreId = "db9aba26-0d2c-4fcf-92a8-78a81bad748c"
                         },
                         new
                         {
-                            Id = "16bcac2f-2082-494e-a172-e9512fd5a301",
-                            AlbumId = "a671573d-5720-4675-8b7d-5ac49cdb73ae",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = "604556e9-f41c-4e28-889c-b63493e55d80"
+                            Id = "515206fb-d9a8-44a0-a21a-fbb6d28bf966",
+                            AlbumId = "13e5d71d-5d4d-4f8c-8181-afba15f9ff60",
+                            GenreId = "905f4e81-d987-4191-83a3-058de3c625df"
                         });
                 });
 
@@ -173,59 +160,59 @@ namespace Data.AppDBContext.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "29e2aff8-b677-4f41-9fe4-0480f529279c",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SongId = "b5765be5-ef00-4355-9167-3d15e689d8f1",
-                            UserId = "b8a74375-8ca5-4966-b44d-f31fe3117211"
+                            Id = "00cbc946-d767-4ca1-9709-fd71167d4e27",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(68),
+                            SongId = "3ac613a3-0f5a-4db0-9189-ac1c3abfa233",
+                            UserId = "af0a8556-16d5-4507-a9a2-34fe0143baec"
                         },
                         new
                         {
-                            Id = "24f4e295-78a2-4b34-9ae5-ce8a2050d8cf",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SongId = "b5765be5-ef00-4355-9167-3d15e689d8f1",
-                            UserId = "0dfe5c1b-646a-4d73-a467-365318003bab"
+                            Id = "2ee10990-88a9-448f-b664-526682fee45c",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(129),
+                            SongId = "3ac613a3-0f5a-4db0-9189-ac1c3abfa233",
+                            UserId = "9ae35ab3-9f1c-40fa-beb6-20b85a99e604"
                         },
                         new
                         {
-                            Id = "dbf82772-4406-48a7-85a1-6083eecafb71",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SongId = "2cdbf016-e622-4d9b-94cf-994f506df8e1",
-                            UserId = "b8a74375-8ca5-4966-b44d-f31fe3117211"
+                            Id = "2cf07b27-434b-4c7d-9950-525951c70c71",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(136),
+                            SongId = "f534b3d2-f7fc-44dc-9d39-79c021aca648",
+                            UserId = "af0a8556-16d5-4507-a9a2-34fe0143baec"
                         },
                         new
                         {
-                            Id = "e1afbd79-a138-4644-af2a-6269cde8469f",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SongId = "2cdbf016-e622-4d9b-94cf-994f506df8e1",
-                            UserId = "2c543e1e-20aa-4a7f-bafd-226c3d627728"
+                            Id = "3a68141a-c949-418b-bb73-8e797fc3ab32",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(143),
+                            SongId = "f534b3d2-f7fc-44dc-9d39-79c021aca648",
+                            UserId = "aabbc4a5-bf07-4024-b419-6c3fee7f5b02"
                         },
                         new
                         {
-                            Id = "812d14fc-126c-44e7-8cad-53f0ee9efe7a",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SongId = "a9c1b8f9-70bc-4a6f-ab72-795a6fa03098",
-                            UserId = "0dfe5c1b-646a-4d73-a467-365318003bab"
+                            Id = "0ca61a4b-bd0d-4e53-be32-03b160d16bfa",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(174),
+                            SongId = "60067218-4fd7-487a-b082-3cbcf4f3be42",
+                            UserId = "9ae35ab3-9f1c-40fa-beb6-20b85a99e604"
                         },
                         new
                         {
-                            Id = "78fb05c0-a6b8-4e94-945d-f50782dcd57c",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SongId = "e7d41fbc-dbac-406f-826d-cfa2546b510d",
-                            UserId = "b8a74375-8ca5-4966-b44d-f31fe3117211"
+                            Id = "6818cef8-16f7-4aa5-a027-ae1956fcb882",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(187),
+                            SongId = "dbac09c9-282f-46a9-a5d9-3d8c31c93014",
+                            UserId = "af0a8556-16d5-4507-a9a2-34fe0143baec"
                         },
                         new
                         {
-                            Id = "2c5863e8-f200-4864-9119-06c28031ca1f",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SongId = "e7d41fbc-dbac-406f-826d-cfa2546b510d",
-                            UserId = "0dfe5c1b-646a-4d73-a467-365318003bab"
+                            Id = "b44b9d7e-83ab-4d49-8d0c-61f920aeb85b",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(194),
+                            SongId = "dbac09c9-282f-46a9-a5d9-3d8c31c93014",
+                            UserId = "9ae35ab3-9f1c-40fa-beb6-20b85a99e604"
                         },
                         new
                         {
-                            Id = "72aefee2-a0b1-434f-9588-48d2d38567e6",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SongId = "e7d41fbc-dbac-406f-826d-cfa2546b510d",
-                            UserId = "2c543e1e-20aa-4a7f-bafd-226c3d627728"
+                            Id = "4398d8e7-9942-4d82-bfb7-a0fbf219ab50",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(198),
+                            SongId = "dbac09c9-282f-46a9-a5d9-3d8c31c93014",
+                            UserId = "aabbc4a5-bf07-4024-b419-6c3fee7f5b02"
                         });
                 });
 
@@ -253,20 +240,20 @@ namespace Data.AppDBContext.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "41809a39-4915-4d18-93f2-72be8bf47dd4",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = "db9aba26-0d2c-4fcf-92a8-78a81bad748c",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(7532),
                             Name = "Metal"
                         },
                         new
                         {
-                            Id = "604556e9-f41c-4e28-889c-b63493e55d80",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = "905f4e81-d987-4191-83a3-058de3c625df",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(7590),
                             Name = "Nu-Metal"
                         },
                         new
                         {
-                            Id = "e7408c1a-07d3-45c7-a24a-efb0aae76fe1",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = "d4b0affc-615a-4ca1-8933-6d04584019ce",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(7600),
                             Name = "Rock"
                         });
                 });
@@ -295,80 +282,21 @@ namespace Data.AppDBContext.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fad20c72-cb3c-4ac8-88c6-66d14768830d",
-                            CreatedAt = new DateTime(2020, 12, 16, 9, 57, 7, 407, DateTimeKind.Local).AddTicks(357),
+                            Id = "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(4272),
                             Name = "Metallica"
                         },
                         new
                         {
-                            Id = "f8829c40-1269-4354-af8a-5c4a9dc485f6",
-                            CreatedAt = new DateTime(2020, 12, 16, 9, 57, 7, 408, DateTimeKind.Local).AddTicks(8665),
+                            Id = "666ca2a8-87db-488b-8432-05a748353866",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(4337),
                             Name = "Iron Maiden"
                         },
                         new
                         {
-                            Id = "3c141ed5-dd3b-482f-afa2-cf43d24f21a3",
-                            CreatedAt = new DateTime(2020, 12, 16, 9, 57, 7, 408, DateTimeKind.Local).AddTicks(8713),
+                            Id = "878d9df9-1f37-4c6e-9a6a-fc8ac94a91ce",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(4347),
                             Name = "Linkin Park"
-                        });
-                });
-
-            modelBuilder.Entity("Data.Models.Models.PerformerAlbum", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AlbumId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PerformerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AlbumId");
-
-                    b.HasIndex("PerformerId");
-
-                    b.ToTable("PerformerAlbums");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b764b07b-d9b5-4f5a-8b6b-be5fb4c07800",
-                            AlbumId = "eb4e9469-92dd-4ee5-9090-8461befe87e6",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PerformerId = "fad20c72-cb3c-4ac8-88c6-66d14768830d"
-                        },
-                        new
-                        {
-                            Id = "9a88f07f-6160-44e6-937c-b0009f9af5e2",
-                            AlbumId = "026c4bfe-14e3-4415-a4f7-47006bc03dc4",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PerformerId = "fad20c72-cb3c-4ac8-88c6-66d14768830d"
-                        },
-                        new
-                        {
-                            Id = "63fa7978-28d5-4e10-b7d2-c343ce0c81ab",
-                            AlbumId = "f1270228-d5de-4268-bdd0-cf5116ca8dea",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PerformerId = "f8829c40-1269-4354-af8a-5c4a9dc485f6"
-                        },
-                        new
-                        {
-                            Id = "9fac3faa-ed07-448b-babe-952c123a7557",
-                            AlbumId = "a671573d-5720-4675-8b7d-5ac49cdb73ae",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PerformerId = "3c141ed5-dd3b-482f-afa2-cf43d24f21a3"
                         });
                 });
 
@@ -392,47 +320,57 @@ namespace Data.AppDBContext.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PerformerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AlbumId");
+
+                    b.HasIndex("PerformerId");
 
                     b.ToTable("Songs");
 
                     b.HasData(
                         new
                         {
-                            Id = "b5765be5-ef00-4355-9167-3d15e689d8f1",
-                            AlbumId = "026c4bfe-14e3-4415-a4f7-47006bc03dc4",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Master Of Puppets"
+                            Id = "3ac613a3-0f5a-4db0-9189-ac1c3abfa233",
+                            AlbumId = "7e5f4498-51a7-4653-85ae-39ba39d449e1",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(6853),
+                            Name = "Master Of Puppets",
+                            PerformerId = "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9"
                         },
                         new
                         {
-                            Id = "2cdbf016-e622-4d9b-94cf-994f506df8e1",
-                            AlbumId = "a671573d-5720-4675-8b7d-5ac49cdb73ae",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Numb"
+                            Id = "f534b3d2-f7fc-44dc-9d39-79c021aca648",
+                            AlbumId = "13e5d71d-5d4d-4f8c-8181-afba15f9ff60",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(6924),
+                            Name = "Numb",
+                            PerformerId = "878d9df9-1f37-4c6e-9a6a-fc8ac94a91ce"
                         },
                         new
                         {
-                            Id = "a9c1b8f9-70bc-4a6f-ab72-795a6fa03098",
-                            AlbumId = "f1270228-d5de-4268-bdd0-cf5116ca8dea",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Fear Of The Dark"
+                            Id = "60067218-4fd7-487a-b082-3cbcf4f3be42",
+                            AlbumId = "7a63fdb1-fa1c-4dce-a683-002b5da32997",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(6935),
+                            Name = "Fear Of The Dark",
+                            PerformerId = "666ca2a8-87db-488b-8432-05a748353866"
                         },
                         new
                         {
-                            Id = "e7d41fbc-dbac-406f-826d-cfa2546b510d",
-                            AlbumId = "eb4e9469-92dd-4ee5-9090-8461befe87e6",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "For Whom The Bell Tolls"
+                            Id = "dbac09c9-282f-46a9-a5d9-3d8c31c93014",
+                            AlbumId = "cf06aabe-df44-4c17-8de4-f87368733656",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(6941),
+                            Name = "For Whom The Bell Tolls",
+                            PerformerId = "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9"
                         },
                         new
                         {
-                            Id = "24457118-19da-4e5a-be61-db60d2554cb9",
-                            AlbumId = "026c4bfe-14e3-4415-a4f7-47006bc03dc4",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Battery"
+                            Id = "35389162-504a-4e81-81bc-50b4a0351693",
+                            AlbumId = "7e5f4498-51a7-4653-85ae-39ba39d449e1",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(6955),
+                            Name = "Battery",
+                            PerformerId = "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9"
                         });
                 });
 
@@ -471,24 +409,24 @@ namespace Data.AppDBContext.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b8a74375-8ca5-4966-b44d-f31fe3117211",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = "af0a8556-16d5-4507-a9a2-34fe0143baec",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 544, DateTimeKind.Local).AddTicks(5577),
                             Email = "george@123.bg",
                             Password = "123",
                             Username = "George"
                         },
                         new
                         {
-                            Id = "0dfe5c1b-646a-4d73-a467-365318003bab",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = "9ae35ab3-9f1c-40fa-beb6-20b85a99e604",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(2832),
                             Email = "martin@123.bg",
                             Password = "123",
                             Username = "Martin"
                         },
                         new
                         {
-                            Id = "2c543e1e-20aa-4a7f-bafd-226c3d627728",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = "aabbc4a5-bf07-4024-b419-6c3fee7f5b02",
+                            CreatedAt = new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(3033),
                             Email = "jake@123.bg",
                             Password = "123",
                             Username = "Jake"
@@ -498,7 +436,7 @@ namespace Data.AppDBContext.Migrations
             modelBuilder.Entity("Data.Models.Models.Album", b =>
                 {
                     b.HasOne("Data.Models.Models.Performer", "Performer")
-                        .WithMany()
+                        .WithMany("Albums")
                         .HasForeignKey("PerformerId");
 
                     b.Navigation("Performer");
@@ -534,28 +472,19 @@ namespace Data.AppDBContext.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Data.Models.Models.PerformerAlbum", b =>
-                {
-                    b.HasOne("Data.Models.Models.Album", "Album")
-                        .WithMany()
-                        .HasForeignKey("AlbumId");
-
-                    b.HasOne("Data.Models.Models.Performer", "Performer")
-                        .WithMany("PerformerAlbums")
-                        .HasForeignKey("PerformerId");
-
-                    b.Navigation("Album");
-
-                    b.Navigation("Performer");
-                });
-
             modelBuilder.Entity("Data.Models.Models.Song", b =>
                 {
                     b.HasOne("Data.Models.Models.Album", "Album")
                         .WithMany("Songs")
                         .HasForeignKey("AlbumId");
 
+                    b.HasOne("Data.Models.Models.Performer", "Performer")
+                        .WithMany("Songs")
+                        .HasForeignKey("PerformerId");
+
                     b.Navigation("Album");
+
+                    b.Navigation("Performer");
                 });
 
             modelBuilder.Entity("Data.Models.Models.Album", b =>
@@ -572,7 +501,9 @@ namespace Data.AppDBContext.Migrations
 
             modelBuilder.Entity("Data.Models.Models.Performer", b =>
                 {
-                    b.Navigation("PerformerAlbums");
+                    b.Navigation("Albums");
+
+                    b.Navigation("Songs");
                 });
 
             modelBuilder.Entity("Data.Models.Models.Song", b =>

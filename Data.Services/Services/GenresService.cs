@@ -29,7 +29,8 @@ namespace Data.Services.Services
                     .Select(x => new GenreDto()
                     {
                         Name = x.Name,
-                        Albums = x.AlbumGenres.Select(z=>z.Album.Name).ToList()
+                        Albums = x.AlbumGenres.Select(z=>z.Album.Name).ToList(),
+                        AddedOn = x.CreatedAt.Date.ToShortDateString()
                     }).ToList();
                    
                     
