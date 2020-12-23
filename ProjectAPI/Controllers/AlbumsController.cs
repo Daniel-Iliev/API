@@ -30,12 +30,12 @@ namespace MusicAPI.Controllers
         {
             return Ok(_service.GetAll());
         }
-        [HttpPost]
-        public IActionResult AddAlbum(Album album)
-        {
-            var token = _service.AddAlbum(album);
-            return Ok(album);
-        }
+        //[HttpPost]
+        //public IActionResult AddAlbum(Album album)
+        //{
+        //    var token = _service.AddAlbum(album);
+        //    return Ok(album);
+        //}
 
     }
 }

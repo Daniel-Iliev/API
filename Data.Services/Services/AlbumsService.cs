@@ -2,8 +2,10 @@
 using Data.Models.Models;
 using Data.Services.Dto;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Data.Services.Services
 {
@@ -35,14 +37,24 @@ namespace Data.Services.Services
                 return (albums);
             }
         }
-        public Album AddAlbum(Album album)
-        {
-            using (applicationDb)
-            {
-                var add = applicationDb.Albums.Add(album);
-                return album;
-            }
-        }
+        //public void AddAlbum(string name,int yearreleased,string perfname)
+        //{
+        //    using (applicationDb)
+        //    {
+                
+        //            var album = new Album()
+        //            {
+        //                Name = name,
+        //                YearReleased=yearreleased,
+        //                PerformerId = applicationDb.Performers.Select(x => x.Id.Where(x.Name ==perfname))
+        //            };
+        //            applicationDb.Albums.Add(album);
+
+
+        //            applicationDb.SaveChanges();
+                
+        //    }
+        //}
 
 
     }

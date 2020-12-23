@@ -110,17 +110,27 @@ namespace Data.Services.Services
                 var songs = applicationDb.Songs
                     .Include(x => x.Album)
                     .Include(x => x.Favourites)
-                    .Select(x => new SongDto()
+                    .GroupBy(x => new { name=x.Name,perfName=x.Performer.Name,year=x.Album.YearReleased,added=x.CreatedAt.ToString(),favs=x})
+                    .Select(x=> new SongDto 
                     {
-                        Name = x.Name,
-                        PerformerName = x.Performer.Name,
-                        YearReleased = x.Album.YearReleased,
-                        Favourited = x.Favourites.Count(),
-                        AddedOn = x.CreatedAt.Date.ToShortDateString()
+                        Name=x.Key.name,
+                        PerformerName = x.Key.perfName,
+                        YearReleased = x.Key.year,
+                        AddedOn = x.Key.added,
+                        Favourited =x.Key.favs.Favourites.Count()
+
+                    
                     })
-                    .GroupBy(x => new { x.Name, x.PerformerName,x.Favourited})
-                    .Select(x => new SongDto{ Name = x.Key.Name,PerformerName = x.Key.PerformerName, Favourited = x.Key.Favourited })
-                    .OrderByDescending(x => x.Favourited)
+                    //.Select(x => new SongDto()
+                    //{
+                    //    Name = x.Name,
+                    //    PerformerName = x.Performer.Name,
+                    //    YearReleased = x.Album.YearReleased,
+                    //    Favourited = x.Favourites.Count(),
+                    //    AddedOn = x.CreatedAt.Date.ToShortDateString()
+                    //})
+                    //.Select(x => new SongDto{ Name = x.Key.Name,PerformerName = x.Key.PerformerName, Favourited = x.Key.Favourited })
+                    //.OrderByDescending(x => x.Favourited)
                     .ToList();
                 return (songs);
             }
