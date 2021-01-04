@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.AppDBContext.Migrations
 {
-    public partial class Initialplus : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,8 +43,7 @@ namespace Data.AppDBContext.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -164,9 +163,9 @@ namespace Data.AppDBContext.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "ModifiedAt", "Name" },
                 values: new object[,]
                 {
-                    { "db9aba26-0d2c-4fcf-92a8-78a81bad748c", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(7532), null, null, "Metal" },
-                    { "905f4e81-d987-4191-83a3-058de3c625df", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(7590), null, null, "Nu-Metal" },
-                    { "d4b0affc-615a-4ca1-8933-6d04584019ce", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(7600), null, null, "Rock" }
+                    { "65d327d2-1000-4eb7-ab02-c49a46ab9bf3", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(7685), null, null, "Metal" },
+                    { "3e8cf2b8-9b38-442d-b7ff-7c55d5bb5566", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(7740), null, null, "Nu-Metal" },
+                    { "d50ac7da-d01e-48c3-8c67-f94ccf002dfa", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(7747), null, null, "Rock" }
                 });
 
             migrationBuilder.InsertData(
@@ -174,19 +173,19 @@ namespace Data.AppDBContext.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "ModifiedAt", "Name" },
                 values: new object[,]
                 {
-                    { "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(4272), null, null, "Metallica" },
-                    { "666ca2a8-87db-488b-8432-05a748353866", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(4337), null, null, "Iron Maiden" },
-                    { "878d9df9-1f37-4c6e-9a6a-fc8ac94a91ce", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(4347), null, null, "Linkin Park" }
+                    { "aabba9e8-db4d-47bc-80e5-fff06f00c43e", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(4340), null, null, "Metallica" },
+                    { "3a243c08-4037-4904-b165-6162b567a7e1", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(4443), null, null, "Iron Maiden" },
+                    { "fef9ca57-3365-487a-833f-b9bd531bacc7", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(4453), null, null, "Linkin Park" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "CreatedAt", "DeletedAt", "Email", "ModifiedAt", "Password", "Username" },
+                columns: new[] { "Id", "CreatedAt", "DeletedAt", "ModifiedAt", "Password", "Username" },
                 values: new object[,]
                 {
-                    { "af0a8556-16d5-4507-a9a2-34fe0143baec", new DateTime(2020, 12, 20, 14, 58, 10, 544, DateTimeKind.Local).AddTicks(5577), null, "george@123.bg", null, "123", "George" },
-                    { "9ae35ab3-9f1c-40fa-beb6-20b85a99e604", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(2832), null, "martin@123.bg", null, "123", "Martin" },
-                    { "aabbc4a5-bf07-4024-b419-6c3fee7f5b02", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(3033), null, "jake@123.bg", null, "123", "Jake" }
+                    { "90d129ce-a34f-4e54-a633-2c9ef2ca854c", new DateTime(2020, 12, 26, 16, 39, 27, 181, DateTimeKind.Local).AddTicks(6810), null, null, "123", "George" },
+                    { "746e9d54-e785-458c-9186-1d54ee25f4e6", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(3477), null, null, "123", "Martin" },
+                    { "7a91cf78-ce5a-430f-891e-70d41a8dd7fa", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(3525), null, null, "123", "Jake" }
                 });
 
             migrationBuilder.InsertData(
@@ -194,10 +193,10 @@ namespace Data.AppDBContext.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "ModifiedAt", "Name", "PerformerId", "YearReleased" },
                 values: new object[,]
                 {
-                    { "cf06aabe-df44-4c17-8de4-f87368733656", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(5730), null, null, "Ride The Lightning", "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9", 1984 },
-                    { "7e5f4498-51a7-4653-85ae-39ba39d449e1", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(5818), null, null, "Master Of Puppets", "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9", 1986 },
-                    { "7a63fdb1-fa1c-4dce-a683-002b5da32997", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(5829), null, null, "Fear Of The Dark", "666ca2a8-87db-488b-8432-05a748353866", 1992 },
-                    { "13e5d71d-5d4d-4f8c-8181-afba15f9ff60", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(5835), null, null, "Meteora", "878d9df9-1f37-4c6e-9a6a-fc8ac94a91ce", 2003 }
+                    { "a2e1df8c-fc91-4a02-b0da-a9d031366d3a", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(5852), null, null, "Ride The Lightning", "aabba9e8-db4d-47bc-80e5-fff06f00c43e", 1984 },
+                    { "1cd73e58-0699-49e4-b099-3f9e8af10d58", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(5944), null, null, "Master Of Puppets", "aabba9e8-db4d-47bc-80e5-fff06f00c43e", 1986 },
+                    { "38c254e4-b1d7-4fa5-a1ad-ad67983b88fe", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(5955), null, null, "Fear Of The Dark", "3a243c08-4037-4904-b165-6162b567a7e1", 1992 },
+                    { "81a0da61-dc69-49ab-a57f-e282808523de", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(5962), null, null, "Meteora", "fef9ca57-3365-487a-833f-b9bd531bacc7", 2003 }
                 });
 
             migrationBuilder.InsertData(
@@ -205,10 +204,10 @@ namespace Data.AppDBContext.Migrations
                 columns: new[] { "Id", "AlbumId", "GenreId" },
                 values: new object[,]
                 {
-                    { "7a5bbdde-adb9-487c-bb3e-af54826bb752", "cf06aabe-df44-4c17-8de4-f87368733656", "db9aba26-0d2c-4fcf-92a8-78a81bad748c" },
-                    { "747c6dcd-9882-45f9-ac92-fc24d334c91d", "7e5f4498-51a7-4653-85ae-39ba39d449e1", "d4b0affc-615a-4ca1-8933-6d04584019ce" },
-                    { "f9049eab-121b-4828-998a-5dc47df6c2f4", "7a63fdb1-fa1c-4dce-a683-002b5da32997", "db9aba26-0d2c-4fcf-92a8-78a81bad748c" },
-                    { "515206fb-d9a8-44a0-a21a-fbb6d28bf966", "13e5d71d-5d4d-4f8c-8181-afba15f9ff60", "905f4e81-d987-4191-83a3-058de3c625df" }
+                    { "0f0afbc1-1997-45c4-ad5c-a1ee4671e70c", "a2e1df8c-fc91-4a02-b0da-a9d031366d3a", "65d327d2-1000-4eb7-ab02-c49a46ab9bf3" },
+                    { "c1cc0b3d-eedc-400d-92ad-85105ff4876c", "1cd73e58-0699-49e4-b099-3f9e8af10d58", "d50ac7da-d01e-48c3-8c67-f94ccf002dfa" },
+                    { "890a3ae9-feb5-4762-8c6a-52ffa81e914e", "38c254e4-b1d7-4fa5-a1ad-ad67983b88fe", "65d327d2-1000-4eb7-ab02-c49a46ab9bf3" },
+                    { "92dde1b2-9e38-4a6f-88ad-3b0f16750578", "81a0da61-dc69-49ab-a57f-e282808523de", "3e8cf2b8-9b38-442d-b7ff-7c55d5bb5566" }
                 });
 
             migrationBuilder.InsertData(
@@ -216,11 +215,11 @@ namespace Data.AppDBContext.Migrations
                 columns: new[] { "Id", "AlbumId", "CreatedAt", "DeletedAt", "ModifiedAt", "Name", "PerformerId" },
                 values: new object[,]
                 {
-                    { "dbac09c9-282f-46a9-a5d9-3d8c31c93014", "cf06aabe-df44-4c17-8de4-f87368733656", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(6941), null, null, "For Whom The Bell Tolls", "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9" },
-                    { "3ac613a3-0f5a-4db0-9189-ac1c3abfa233", "7e5f4498-51a7-4653-85ae-39ba39d449e1", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(6853), null, null, "Master Of Puppets", "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9" },
-                    { "35389162-504a-4e81-81bc-50b4a0351693", "7e5f4498-51a7-4653-85ae-39ba39d449e1", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(6955), null, null, "Battery", "3b785329-f8f5-4a34-a92a-7f7c22d6bfa9" },
-                    { "60067218-4fd7-487a-b082-3cbcf4f3be42", "7a63fdb1-fa1c-4dce-a683-002b5da32997", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(6935), null, null, "Fear Of The Dark", "666ca2a8-87db-488b-8432-05a748353866" },
-                    { "f534b3d2-f7fc-44dc-9d39-79c021aca648", "13e5d71d-5d4d-4f8c-8181-afba15f9ff60", new DateTime(2020, 12, 20, 14, 58, 10, 546, DateTimeKind.Local).AddTicks(6924), null, null, "Numb", "878d9df9-1f37-4c6e-9a6a-fc8ac94a91ce" }
+                    { "4455a272-e6c3-4a8f-8081-85dba06d154a", "a2e1df8c-fc91-4a02-b0da-a9d031366d3a", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(7091), null, null, "For Whom The Bell Tolls", "aabba9e8-db4d-47bc-80e5-fff06f00c43e" },
+                    { "e882b460-af7a-4368-8649-8c2af2441550", "1cd73e58-0699-49e4-b099-3f9e8af10d58", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(7006), null, null, "Master Of Puppets", "aabba9e8-db4d-47bc-80e5-fff06f00c43e" },
+                    { "fc9e59e9-df78-44a8-9d66-6ea43efddd47", "1cd73e58-0699-49e4-b099-3f9e8af10d58", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(7102), null, null, "Battery", "aabba9e8-db4d-47bc-80e5-fff06f00c43e" },
+                    { "b8b2e246-d63c-41cb-9b8b-3bd41fde1f2a", "38c254e4-b1d7-4fa5-a1ad-ad67983b88fe", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(7085), null, null, "Fear Of The Dark", "3a243c08-4037-4904-b165-6162b567a7e1" },
+                    { "3accaa17-c7f3-4684-8c93-009f56f995ff", "81a0da61-dc69-49ab-a57f-e282808523de", new DateTime(2020, 12, 26, 16, 39, 27, 183, DateTimeKind.Local).AddTicks(7074), null, null, "Numb", "fef9ca57-3365-487a-833f-b9bd531bacc7" }
                 });
 
             migrationBuilder.InsertData(
@@ -228,14 +227,14 @@ namespace Data.AppDBContext.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "ModifiedAt", "SongId", "UserId" },
                 values: new object[,]
                 {
-                    { "6818cef8-16f7-4aa5-a027-ae1956fcb882", new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(187), null, null, "dbac09c9-282f-46a9-a5d9-3d8c31c93014", "af0a8556-16d5-4507-a9a2-34fe0143baec" },
-                    { "b44b9d7e-83ab-4d49-8d0c-61f920aeb85b", new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(194), null, null, "dbac09c9-282f-46a9-a5d9-3d8c31c93014", "9ae35ab3-9f1c-40fa-beb6-20b85a99e604" },
-                    { "4398d8e7-9942-4d82-bfb7-a0fbf219ab50", new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(198), null, null, "dbac09c9-282f-46a9-a5d9-3d8c31c93014", "aabbc4a5-bf07-4024-b419-6c3fee7f5b02" },
-                    { "00cbc946-d767-4ca1-9709-fd71167d4e27", new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(68), null, null, "3ac613a3-0f5a-4db0-9189-ac1c3abfa233", "af0a8556-16d5-4507-a9a2-34fe0143baec" },
-                    { "2ee10990-88a9-448f-b664-526682fee45c", new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(129), null, null, "3ac613a3-0f5a-4db0-9189-ac1c3abfa233", "9ae35ab3-9f1c-40fa-beb6-20b85a99e604" },
-                    { "0ca61a4b-bd0d-4e53-be32-03b160d16bfa", new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(174), null, null, "60067218-4fd7-487a-b082-3cbcf4f3be42", "9ae35ab3-9f1c-40fa-beb6-20b85a99e604" },
-                    { "2cf07b27-434b-4c7d-9950-525951c70c71", new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(136), null, null, "f534b3d2-f7fc-44dc-9d39-79c021aca648", "af0a8556-16d5-4507-a9a2-34fe0143baec" },
-                    { "3a68141a-c949-418b-bb73-8e797fc3ab32", new DateTime(2020, 12, 20, 14, 58, 10, 547, DateTimeKind.Local).AddTicks(143), null, null, "f534b3d2-f7fc-44dc-9d39-79c021aca648", "aabbc4a5-bf07-4024-b419-6c3fee7f5b02" }
+                    { "9f6bade5-a04c-4ece-8391-0be10abd98eb", new DateTime(2020, 12, 26, 16, 39, 27, 184, DateTimeKind.Local).AddTicks(341), null, null, "4455a272-e6c3-4a8f-8081-85dba06d154a", "90d129ce-a34f-4e54-a633-2c9ef2ca854c" },
+                    { "24bafa8b-fdb8-4c77-8478-8d527602934f", new DateTime(2020, 12, 26, 16, 39, 27, 184, DateTimeKind.Local).AddTicks(344), null, null, "4455a272-e6c3-4a8f-8081-85dba06d154a", "746e9d54-e785-458c-9186-1d54ee25f4e6" },
+                    { "b00a7ada-9b31-4c85-b050-33ad61f076f3", new DateTime(2020, 12, 26, 16, 39, 27, 184, DateTimeKind.Local).AddTicks(351), null, null, "4455a272-e6c3-4a8f-8081-85dba06d154a", "7a91cf78-ce5a-430f-891e-70d41a8dd7fa" },
+                    { "3c0f2273-7341-4ea6-b260-f4c52e5e68ad", new DateTime(2020, 12, 26, 16, 39, 27, 184, DateTimeKind.Local).AddTicks(249), null, null, "e882b460-af7a-4368-8649-8c2af2441550", "90d129ce-a34f-4e54-a633-2c9ef2ca854c" },
+                    { "e0d150c3-c82d-4c46-996c-3226805fb6ba", new DateTime(2020, 12, 26, 16, 39, 27, 184, DateTimeKind.Local).AddTicks(307), null, null, "e882b460-af7a-4368-8649-8c2af2441550", "746e9d54-e785-458c-9186-1d54ee25f4e6" },
+                    { "1849e22a-0e6d-4e5d-ab5b-e2f73f74abac", new DateTime(2020, 12, 26, 16, 39, 27, 184, DateTimeKind.Local).AddTicks(324), null, null, "b8b2e246-d63c-41cb-9b8b-3bd41fde1f2a", "746e9d54-e785-458c-9186-1d54ee25f4e6" },
+                    { "bfbee3bd-9f31-405b-a64a-4dfb426002cf", new DateTime(2020, 12, 26, 16, 39, 27, 184, DateTimeKind.Local).AddTicks(314), null, null, "3accaa17-c7f3-4684-8c93-009f56f995ff", "90d129ce-a34f-4e54-a633-2c9ef2ca854c" },
+                    { "14aeaaaa-4214-4ce7-9de1-33e2eb3ecc84", new DateTime(2020, 12, 26, 16, 39, 27, 184, DateTimeKind.Local).AddTicks(320), null, null, "3accaa17-c7f3-4684-8c93-009f56f995ff", "7a91cf78-ce5a-430f-891e-70d41a8dd7fa" }
                 });
 
             migrationBuilder.CreateIndex(

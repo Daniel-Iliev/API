@@ -56,7 +56,6 @@ namespace Data.AppDBContext
                     Id=Guid.NewGuid().ToString(),
                     Username="George",
                     Password="123",
-                    Email = "george@123.bg",
                     CreatedAt=DateTime.Now
                 },
                 new User()
@@ -64,7 +63,6 @@ namespace Data.AppDBContext
                     Id=Guid.NewGuid().ToString(),
                     Username="Martin",
                      Password="123",
-                     Email = "martin@123.bg",
                     CreatedAt=DateTime.Now
                 },
                 new User()
@@ -72,7 +70,6 @@ namespace Data.AppDBContext
                     Id=Guid.NewGuid().ToString(),
                     Username="Jake",
                      Password="123",
-                     Email = "jake@123.bg",
                     CreatedAt=DateTime.Now
                 }
             };

@@ -26,16 +26,29 @@ namespace MusicAPI.Controllers
         }
         [Route("getall")]
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(string order,bool decending)
         {
-            return Ok(_service.GetAll());
+            return Ok(_service.GetAll(order,decending));
         }
-        //[HttpPost]
-        //public IActionResult AddAlbum(Album album)
-        //{
-        //    var token = _service.AddAlbum(album);
-        //    return Ok(album);
-        //}
-
+        [HttpPost]
+        public IActionResult AddAlbum([FromQuery] AlbumPost album)
+        {
+             _service.AddAlbum(album);
+            return Ok(album);
+        }
+        [Route("addalbumgenre")]
+        [HttpPost]
+        public IActionResult AddAlbumGenre(AlbumGenrePost albumGenrePost)
+        {
+            _service.AddAlbumGenre( albumGenrePost);
+            return Ok(albumGenrePost);
+        }
+        [Route("updatealbum")]
+        [HttpPost]
+        public IActionResult Updatealbum(string name, AlbumPost album)
+        {
+            _service.UpdateAlbum(name, album);
+            return Ok(album);
+        }
     }
 }

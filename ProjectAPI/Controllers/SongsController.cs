@@ -2,6 +2,7 @@
 using Data.Services.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Data.Services.Dto;
 
 namespace MusicAPI.Controllers
 {
@@ -23,9 +24,9 @@ namespace MusicAPI.Controllers
         }
         [Route("getall")]
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(string order,bool decending)
         {
-            return Ok(_service.GetAll());
+            return Ok(_service.GetAll(order,decending));
         }
         [Route("getsongsofbyyear")]
         [HttpGet]
@@ -33,13 +34,21 @@ namespace MusicAPI.Controllers
         {
             return Ok(_service.GetSongsOfByYear(perfName,year));
         }
-        [Route("GetMostFavourited")]
-        [HttpGet]
-        
-            public IActionResult GetMostFavourited()
+         
+        [HttpPost]
+        public IActionResult AddSong([FromQuery] SongPost song)
         {
-            return Ok(_service.GetMostFavourited());
+            _service.AddSong(song);
+            return Ok(song);
         }
+        [Route("updatesong")]
+        [HttpPost]
+        public IActionResult UpdateSong(string name,SongPost song)
+        {
+            _service.UpdateSong(name,song);
+            return Ok(song);
+        }
+
 
     }
 }

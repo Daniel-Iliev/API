@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.Services.Dto;
 using Data.Services.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,9 +29,22 @@ namespace MusicAPI.Controllers
         }
         [Route("getall")]
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(string order,bool decending)
         {
-            return Ok(_service.GetAll());
+            return Ok(_service.GetAll(order,decending));
+        }
+        [HttpPost]
+        public IActionResult AddPerformer([FromQuery] PerformerPost performer)
+        {
+            _service.AddPerformer(performer);
+            return Ok(performer);
+        }
+        [Route("updateperformer")]
+        [HttpPost]
+        public IActionResult UpdatePerformer(string name, PerformerPost performer)
+        {
+            _service.UpdatePerformer(name, performer);
+            return Ok(performer);
         }
     }
 }

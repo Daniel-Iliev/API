@@ -1,8 +1,11 @@
 ﻿using Data.AppDBContext;
+using Data.Models.Models;
 using Data.Services.Dto;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 
@@ -16,27 +19,303 @@ namespace Data.Services.Services
         {
             this.applicationDb = applicationDb;
         }
-        public List<SongDto> GetAll()
+        public List<SongDto> GetAll(string order,bool decending=false)
         {
             using (applicationDb)
             {
-                var songs = applicationDb.Songs
-                    .Include(x=>x.Album)
-                    .ThenInclude(x=>x.AlbumGenres)
-                    .ThenInclude(x=>x.Genre)
-                    .Include(x=>x.Album.Performer)
-                    .Select(x=>new SongDto()
+                var songs = new List<SongDto>();
+                if (decending == true)
                 {
-                    Name = x.Name,
-                    AlbumName = x.Album.Name,
-                    PerformerName = x.Album.Performer.Name,
-                    YearReleased = x.Album.YearReleased,
-                    Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
-                        AddedOn = x.CreatedAt.Date.ToShortDateString()
+                    switch (order)
+                    {
+                        case "year":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderByDescending(x => x.YearReleased)
+                            .ToList();
+                            break;
 
+                        case "name":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderByDescending(x => x.Name)
+                            .ToList();
+                            break;
 
-                    }).ToList();
-                return (songs);
+                        case "favourite":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderByDescending(x => x.Favourited)
+                            .ToList();
+                            break;
+
+                        case "performer":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderByDescending(x => x.PerformerName)
+                            .ToList();
+                            break;
+
+                        case "album":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderByDescending(x => x.AlbumName)
+                            .ToList();
+                            break;
+
+                        case "date":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderByDescending(x => x.AddedOn)
+                            .ToList();
+                            break;
+
+                        default:
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderByDescending(x => x.Name)
+                            .ToList();
+                            break;
+                    }
+                }
+                else 
+                {
+                    switch (order)
+                    {
+                        case "year":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderBy(x => x.YearReleased)
+                            .ToList();
+                            break;
+
+                        case "name":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderBy(x => x.Name)
+                            .ToList();
+                            break;
+
+                        case "favourite":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderBy(x => x.Favourited)
+                            .ToList();
+                            break;
+
+                        case "performer":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderBy(x => x.PerformerName)
+                            .ToList();
+                            break;
+
+                        case "album":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderBy(x => x.AlbumName)
+                            .ToList();
+                            break;
+
+                        case "date":
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderBy(x => x.AddedOn)
+                            .ToList();
+                            break;
+
+                        default:
+                            songs = applicationDb.Songs
+                            .Include(x => x.Album)
+                            .ThenInclude(x => x.AlbumGenres)
+                            .ThenInclude(x => x.Genre)
+                            .Include(x => x.Album.Performer)
+                            .Select(x => new SongDto()
+                            {
+                                Name = x.Name,
+                                AlbumName = x.Album.Name,
+                                PerformerName = x.Performer.Name,
+                                YearReleased = x.Album.YearReleased,
+                                Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
+                                Favourited = x.Favourites.Count(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderBy(x => x.Name)
+                            .ToList();
+                            break;
+                    }
+                }
+                    return (songs);
+                
             }
         }
         public List<SongDto> GetSongsOfByYear(string perfName, int? year)
@@ -58,9 +337,11 @@ namespace Data.Services.Services
                            YearReleased = x.Album.YearReleased,
                            PerformerName = x.Performer.Name,
                            Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
-                           AddedOn = x.CreatedAt.Date.ToShortDateString()
+                           Favourited = x.Favourites.Count(),
+                           AddedOn = x.CreatedAt.ToString()
                        })
-                       .Where(x => x.YearReleased < year)
+                       .Where(x => x.YearReleased == year)
+                       .OrderByDescending(x=>x.YearReleased)
                        .ToList();
                     return (songs);
                 }
@@ -78,7 +359,8 @@ namespace Data.Services.Services
                        YearReleased = x.Album.YearReleased,
                        PerformerName = x.Performer.Name,
                        Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
-                       AddedOn = x.CreatedAt.Date.ToShortDateString()
+                       Favourited = x.Favourites.Count(),
+                       AddedOn = x.CreatedAt.ToString()
                    })
                    .Where(x => x.PerformerName==perfName)
                    .ToList();
@@ -96,43 +378,51 @@ namespace Data.Services.Services
                         YearReleased = x.Album.YearReleased,
                         PerformerName = x.Performer.Name,
                         Genres = x.Album.AlbumGenres.Select(z => z.Genre.Name).ToList(),
-                        AddedOn = x.CreatedAt.Date.ToShortDateString()
+                        Favourited = x.Favourites.Count(),
+                        AddedOn = x.CreatedAt.ToString()
                     })
                     .Where(x=>x.YearReleased<year&&x.PerformerName==perfName)
                     .ToList();
                 return (songs);
             }
         }
-        public List<SongDto> GetMostFavourited()
+       
+        public void AddSong(SongPost song)
         {
             using (applicationDb)
             {
-                var songs = applicationDb.Songs
-                    .Include(x => x.Album)
-                    .Include(x => x.Favourites)
-                    .GroupBy(x => new { name=x.Name,perfName=x.Performer.Name,year=x.Album.YearReleased,added=x.CreatedAt.ToString(),favs=x})
-                    .Select(x=> new SongDto 
-                    {
-                        Name=x.Key.name,
-                        PerformerName = x.Key.perfName,
-                        YearReleased = x.Key.year,
-                        AddedOn = x.Key.added,
-                        Favourited =x.Key.favs.Favourites.Count()
+                var perf = applicationDb.Performers.FirstOrDefault(x => x.Name == song.PerformerName);
+                var alb = applicationDb.Albums.FirstOrDefault(x => x.Name == song.AlbumName);
+                var data = new Song()
+                {
+                    Name = song.Name,
+                    PerformerId = perf.Id,
+                    AlbumId = alb.Id,
+                    CreatedAt = DateTime.Now
+                };
+                applicationDb.Songs.Add(data);
 
-                    
-                    })
-                    //.Select(x => new SongDto()
-                    //{
-                    //    Name = x.Name,
-                    //    PerformerName = x.Performer.Name,
-                    //    YearReleased = x.Album.YearReleased,
-                    //    Favourited = x.Favourites.Count(),
-                    //    AddedOn = x.CreatedAt.Date.ToShortDateString()
-                    //})
-                    //.Select(x => new SongDto{ Name = x.Key.Name,PerformerName = x.Key.PerformerName, Favourited = x.Key.Favourited })
-                    //.OrderByDescending(x => x.Favourited)
-                    .ToList();
-                return (songs);
+
+                applicationDb.SaveChanges();
+
+            }
+        }
+        public void UpdateSong(string songname,SongPost song)
+        {
+            using (applicationDb)
+            {
+                var findsong = applicationDb.Songs.FirstOrDefault(x => x.Name == songname);
+                var perf = applicationDb.Performers.FirstOrDefault(x => x.Name == song.PerformerName);
+                var alb = applicationDb.Albums.FirstOrDefault(x => x.Name == song.AlbumName);
+                if (findsong != null)
+                {
+
+                    findsong.Name = song.Name;
+                    findsong.PerformerId = perf.Id;
+                    findsong.AlbumId = alb.Id;
+                    findsong.ModifiedAt = DateTime.Now;
+                    applicationDb.SaveChanges();
+                }
             }
         }
 

@@ -56,7 +56,7 @@ namespace Data.Services.Identity
                             _dbContext.Users.Add(new Models.Models.User()
                             {
                                 Username = model.Username,
-                                Password = hashedPassword
+                                Password = hashedPassword,
                             });
                             _dbContext.SaveChanges();
                         }
@@ -127,8 +127,7 @@ namespace Data.Services.Identity
         {
             bool result =
                            model.Password.Any(c => char.IsLetter(c)) &&
-                           model.Password.Any(c => char.IsDigit(c)) &&
-                           model.Password.Any(c => char.IsSymbol(c));
+                           model.Password.Any(c => char.IsDigit(c));
             if (result == true)
             {
                 if (model.Password == model.ConfirmPassword)

@@ -15,7 +15,7 @@ namespace MusicAPI.Controllers
             this.userService = userService;
         }
         [HttpGet]
-        public IActionResult Register(RegisterModel model)
+        public IActionResult Register([FromQuery] RegisterModel model)
         {
             var token = userService.Register(model);
             if (string.IsNullOrEmpty(token))

@@ -18,25 +18,151 @@ namespace Data.Services.Services
         {
             this.applicationDb = applicationDb;
         }
-        public List<PerformerDto> GetAll()
+        public List<PerformerDto> GetAll(string order, bool decending = false)
         {
             using (applicationDb)
             {
-                var performers = applicationDb.Performers
-                    .Include(x => x.Songs)
-                    .Include(x => x.Albums)
-                    .Select(x => new PerformerDto()
+                var performers = new List<PerformerDto>();
+                if (decending == true)
+                {
+                    switch (order)
                     {
+                        case "name":
+                            performers = applicationDb.Performers
+                            .Include(x => x.Songs)
+                            .Include(x => x.Albums)
+                            .Select(x => new PerformerDto()
+                            {
 
-                        Name = x.Name,
-                        Albums = x.Albums.Select(z => z.Name).ToList(),
-                        Songs = x.Songs.Select(z => z.Name).ToList(),
-                        AddedOn = x.CreatedAt.Date.ToShortDateString()
-                    }).ToList();
+                                Name = x.Name,
+                                Albums = x.Albums.Select(z => z.Name).ToList(),
+                                Songs = x.Songs.Select(z => z.Name).ToList(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderByDescending(x => x.Name)
+                            .ToList();
+                            break;
+
+                        case "date":
+                            performers = applicationDb.Performers
+                            .Include(x => x.Songs)
+                            .Include(x => x.Albums)
+                            .Select(x => new PerformerDto()
+                            {
+
+                                Name = x.Name,
+                                Albums = x.Albums.Select(z => z.Name).ToList(),
+                                Songs = x.Songs.Select(z => z.Name).ToList(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderByDescending(x => x.AddedOn)
+                            .ToList();
+                            break;
+
+                         default:
+                            performers = applicationDb.Performers
+                            .Include(x => x.Songs)
+                            .Include(x => x.Albums)
+                            .Select(x => new PerformerDto()
+                            {
+
+                                Name = x.Name,
+                                Albums = x.Albums.Select(z => z.Name).ToList(),
+                                Songs = x.Songs.Select(z => z.Name).ToList(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderByDescending(x => x.Name)
+                            .ToList();
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (order)
+                    {
+                        case "name":
+                            performers = applicationDb.Performers
+                            .Include(x => x.Songs)
+                            .Include(x => x.Albums)
+                            .Select(x => new PerformerDto()
+                            {
+
+                                Name = x.Name,
+                                Albums = x.Albums.Select(z => z.Name).ToList(),
+                                Songs = x.Songs.Select(z => z.Name).ToList(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderBy(x => x.Name)
+                            .ToList();
+                            break;
+
+                        case "date":
+                            performers = applicationDb.Performers
+                            .Include(x => x.Songs)
+                            .Include(x => x.Albums)
+                            .Select(x => new PerformerDto()
+                            {
+
+                                Name = x.Name,
+                                Albums = x.Albums.Select(z => z.Name).ToList(),
+                                Songs = x.Songs.Select(z => z.Name).ToList(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderBy(x => x.AddedOn)
+                            .ToList();
+                            break;
+
+                        default:
+                            performers = applicationDb.Performers
+                            .Include(x => x.Songs)
+                            .Include(x => x.Albums)
+                            .Select(x => new PerformerDto()
+                            {
+
+                                Name = x.Name,
+                                Albums = x.Albums.Select(z => z.Name).ToList(),
+                                Songs = x.Songs.Select(z => z.Name).ToList(),
+                                AddedOn = x.CreatedAt.ToString()
+                            })
+                            .OrderBy(x => x.Name)
+                            .ToList();
+                            break;
+                    }
+                }
                 return (performers);
             }
         }
-       
+        public void AddPerformer(PerformerPost performer)
+        {
+            using (applicationDb)
+            {
+
+                var data = new Performer()
+                {
+                    Name = performer.Name,
+                    CreatedAt = DateTime.Now
+                };
+                applicationDb.Performers.Add(data);
+
+
+                applicationDb.SaveChanges();
+
+            }
+        }
+        public void UpdatePerformer(string name, PerformerPost performer)
+        {
+            using (applicationDb)
+            {
+                var findPerformer = applicationDb.Performers.FirstOrDefault(x => x.Name == name);
+                if (findPerformer != null)
+                {
+
+                    findPerformer.Name = performer.Name;
+                    findPerformer.ModifiedAt = DateTime.Now;
+                    applicationDb.SaveChanges();
+                }
+            }
+        }
 
     }
 }
