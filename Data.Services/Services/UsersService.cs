@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 
 namespace Data.Services.Services
 {
@@ -118,38 +120,47 @@ namespace Data.Services.Services
                 return (users);
             }
         }
-        public void AddFavourite(FavouritePost favourite)
+        public string AddFavourite(string username,string songName)
         {
             using (applicationDb)
             {
 
-                var song = applicationDb.Songs.FirstOrDefault(x => x.Name == favourite.Song);
-                var user = applicationDb.Users.FirstOrDefault(x => x.Username == favourite.User);
-                var data = new Favourite()
+                var song = applicationDb.Songs.FirstOrDefault(x => x.Name == songName);
+                var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
+                if (findUser!=null) 
                 {
-                    UserId = user.Id,
-                    SongId = song.Id,
-                    CreatedAt = DateTime.Now
-                };
-                applicationDb.Favourites.Add(data);
-
-
-                applicationDb.SaveChanges();
-
+                    var data = new Favourite()
+                    {
+                        UserId = findUser.Id,
+                        SongId = song.Id,
+                        CreatedAt = DateTime.Now
+                    };
+                    applicationDb.Favourites.Add(data);
+                    applicationDb.SaveChanges();
+                    return "Song " + '"' + songName + '"' + " added to favourites succesfully";
+                }
+                return "Invalid Token";
             }
         }
-        public void ChangeUsername(string name, UserPost user)
+
+        public string DeleteFavourite(string username,string songname)
         {
             using (applicationDb)
             {
-                var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == name);
-                if (findUser != null)
-                {
+                var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
+                var song = applicationDb.Songs.FirstOrDefault(x => x.Name == songname);
+                var favs = applicationDb.Favourites.FirstOrDefault(x => x.SongId == song.Id && x.UserId == findUser.Id);
+                if (song!=null) {
+                    if (favs != null)
+                    {
 
-                    findUser.Username = user.UserName;
-                    findUser.ModifiedAt = DateTime.Now;
-                    applicationDb.SaveChanges();
+                        applicationDb.Favourites.Remove(favs);
+                        applicationDb.SaveChanges();
+                        return "Song " + '"' + songname + '"' + " has been succesfully deleted from your favourites";
+                    }
+                    return "Song " + '"' + songname + '"' + " does not exist in your favourites";
                 }
+                return "Song " + '"' + songname + '"' + " does not exist";
             }
         }
 

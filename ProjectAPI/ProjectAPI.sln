@@ -12,9 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Services", "..\Data.Services\Data.Services.csproj", "{7A56A56E-7CF8-44C7-B3C2-515AA63F9EEF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{DBB3CBB1-2E2B-44DC-85CE-8A75CAD0BF82}"
-	ProjectSection(SolutionItems) = preProject
-		..\Data.Services\tokenconfig.json = ..\Data.Services\tokenconfig.json
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

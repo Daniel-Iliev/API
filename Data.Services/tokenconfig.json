@@ -1,0 +1,7 @@
+{
+  "secret": "Very secret salt.",
+  "audience": "SampleAudience",
+  "AccessExpiration": 30,
+  "RefreshExpiration": 60,
+  "Issuer": "https://localhost:49233/"
+}

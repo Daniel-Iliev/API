@@ -2,6 +2,7 @@
 using Data.Models.Models;
 using Data.Services.Dto;
 using Data.Services.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -30,12 +31,14 @@ namespace MusicAPI.Controllers
         {
             return Ok(_service.GetAll(order,decending));
         }
+        [Authorize]
         [HttpPost]
         public IActionResult AddAlbum([FromQuery] AlbumPost album)
         {
              _service.AddAlbum(album);
             return Ok(album);
         }
+        [Authorize]
         [Route("addalbumgenre")]
         [HttpPost]
         public IActionResult AddAlbumGenre(AlbumGenrePost albumGenrePost)
@@ -43,6 +46,7 @@ namespace MusicAPI.Controllers
             _service.AddAlbumGenre( albumGenrePost);
             return Ok(albumGenrePost);
         }
+        [Authorize]
         [Route("updatealbum")]
         [HttpPost]
         public IActionResult Updatealbum(string name, AlbumPost album)

@@ -1,4 +1,5 @@
 ﻿using Data.AppDBContext;
+using Data.Models.Models;
 using Data.Services.Dto;
 using Data.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
@@ -17,17 +18,58 @@ namespace Data.Services.Identity
 {
     public class UserService : IUserService
     {
-        private DBContext _dbContext;
+        private DBContext applicationDb;
 
         public UserService(DBContext dbContext)
         {
-            _dbContext = dbContext;
+            applicationDb = dbContext;
+        }
+        public string ChangeUsername(string username, string newUsername)
+        {
+            using (applicationDb)
+            {
+
+                var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
+                if (findUser != null)
+                {
+
+                    findUser.Username = newUsername;
+                    findUser.ModifiedAt = DateTime.Now;
+                    applicationDb.SaveChanges();
+                    var token = TokenGenerator(newUsername);
+                    return token;
+                }
+                return "Invalid User";
+
+            }
+        }
+
+        public string ChangePassword(string username,ChangePassword changePassword)
+        {
+            using (applicationDb)
+            {
+
+                var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
+                if (findUser != null)
+                {
+                    if (Hash(changePassword.OldPassword)==findUser.Password) {
+                        findUser.Password = Hash(changePassword.NewPassword);
+                        findUser.ModifiedAt = DateTime.Now;
+                        applicationDb.SaveChanges();
+                        return "Password has been changed";
+                    }
+                    return "Wrong Password";
+                    
+                }
+                return "Invalid token";
+
+            }
         }
         public string Login(LoginModel model)
         {
-            using (_dbContext)
+            using (applicationDb)
             {
-                var user = _dbContext.Users.FirstOrDefault(x => x.Username == model.Username);
+                var user = applicationDb.Users.FirstOrDefault(x => x.Username == model.Username);
                 if (user != null)
                 {
                     if (user.Password == Hash(model.Password))
@@ -37,7 +79,7 @@ namespace Data.Services.Identity
                         return token;
                     }
                 }
-                return model.Username;
+                return "Invalid User" ;
             }
         }
 
@@ -45,25 +87,26 @@ namespace Data.Services.Identity
         {
             try
             {
-                using (_dbContext)
+                using (applicationDb)
                 {
-                    if (_dbContext.Users.FirstOrDefault(x => x.Username == model.Username) == null)
+                    if (applicationDb.Users.FirstOrDefault(x => x.Username == model.Username) == null)
                     {
                         bool passwordValidation = CheckUserPassword(model);
                         if (passwordValidation == true)
                         {
                             string hashedPassword = Hash(model.Password);
-                            _dbContext.Users.Add(new Models.Models.User()
+                            applicationDb.Users.Add(new User()
                             {
                                 Username = model.Username,
                                 Password = hashedPassword,
                             });
-                            _dbContext.SaveChanges();
+                            applicationDb.SaveChanges();
+                            return TokenGenerator(model.Username);
                         }
 
-                        return TokenGenerator(model.Username);
+                        return "Invalid Password";
                     }
-                    return string.Empty;
+                    return "Username already exists";
                 }
 
             }
@@ -138,5 +181,6 @@ namespace Data.Services.Identity
             }
             return false;
         }
+        
     }
 }

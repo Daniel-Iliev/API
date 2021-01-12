@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Data.Services.Dto;
 using Data.Services.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,12 +34,14 @@ namespace MusicAPI.Controllers
         {
             return Ok(_service.GetAll(order,decending));
         }
+        [Authorize]
         [HttpPost]
         public IActionResult AddPerformer([FromQuery] PerformerPost performer)
         {
             _service.AddPerformer(performer);
             return Ok(performer);
         }
+        [Authorize]
         [Route("updateperformer")]
         [HttpPost]
         public IActionResult UpdatePerformer(string name, PerformerPost performer)

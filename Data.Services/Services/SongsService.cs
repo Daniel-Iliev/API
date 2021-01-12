@@ -426,5 +426,23 @@ namespace Data.Services.Services
             }
         }
 
+        public string DeleteSong(string songname)
+        {
+            using (applicationDb)
+            {
+                var song = applicationDb.Songs.FirstOrDefault(x => x.Name == songname);
+                var favs = applicationDb.Favourites.FirstOrDefault(x=>x.SongId == song.Id); 
+                if (song != null)
+                {
+                    if (favs != null) {
+                        return "Song can not be deleted while it is in favourites";
+                    }
+                    applicationDb.Remove(song);
+                    applicationDb.SaveChanges();
+                    return "Song " + '"' + songname + '"' + " has been deleted succesfully";
+                }
+                return "Song " + '"' + songname + '"' + " does not exist";
+            }
+        }
     }
 }

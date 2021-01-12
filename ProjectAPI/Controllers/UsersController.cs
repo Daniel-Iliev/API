@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Data.Services.Dto;
 using Data.Services.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,20 +35,30 @@ namespace MusicAPI.Controllers
         {
             return Ok(_service.GetAll(order,decending));
         }
+        [Authorize]
         [Route("addfav")]
         [HttpPost]
-        public IActionResult AddFavourite(FavouritePost favouritePost)
+        public IActionResult AddFavourite(string songName)
         {
-            _service.AddFavourite(favouritePost);
-            return Ok(favouritePost);
+            string username;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            username = identity.Name;
+            return Ok(_service.AddFavourite(username,songName));
         }
-        [Route("changeusername")]
-        [HttpPost]
-        public IActionResult ChangeUsername(string name, UserPost user)
+        [Authorize]
+        [Route("deletefav")]
+        [HttpDelete]
+        public IActionResult DeleteFavourite(string songName)
         {
-            _service.ChangeUsername(name, user);
-            return Ok(user);
+            string username;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            username = identity.Name;
+
+            return Ok(_service.DeleteFavourite(username,songName));
         }
+
 
     }
 }

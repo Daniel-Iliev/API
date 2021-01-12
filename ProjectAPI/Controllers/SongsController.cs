@@ -3,6 +3,7 @@ using Data.Services.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Data.Services.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MusicAPI.Controllers
 {
@@ -34,13 +35,14 @@ namespace MusicAPI.Controllers
         {
             return Ok(_service.GetSongsOfByYear(perfName,year));
         }
-         
+        [Authorize]
         [HttpPost]
         public IActionResult AddSong([FromQuery] SongPost song)
         {
             _service.AddSong(song);
             return Ok(song);
         }
+        [Authorize]
         [Route("updatesong")]
         [HttpPost]
         public IActionResult UpdateSong(string name,SongPost song)
@@ -49,6 +51,13 @@ namespace MusicAPI.Controllers
             return Ok(song);
         }
 
-
+        [Authorize]
+        [Route("deletesong")]
+        [HttpDelete]
+        public IActionResult DeleteSong(string name)
+        {
+            
+            return Ok(_service.DeleteSong(name));
+        }
     }
 }
