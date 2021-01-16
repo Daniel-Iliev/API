@@ -30,13 +30,14 @@ namespace Data.Services.Identity
             {
 
                 var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
+                var role = findUser.Role;
                 if (findUser != null)
                 {
 
                     findUser.Username = newUsername;
                     findUser.ModifiedAt = DateTime.Now;
                     applicationDb.SaveChanges();
-                    var token = TokenGenerator(newUsername);
+                    var token = TokenGenerator(newUsername,role);
                     return token;
                 }
                 return "Invalid User";
@@ -70,11 +71,12 @@ namespace Data.Services.Identity
             using (applicationDb)
             {
                 var user = applicationDb.Users.FirstOrDefault(x => x.Username == model.Username);
+                var role = user.Role;
                 if (user != null)
                 {
                     if (user.Password == Hash(model.Password))
                     {
-                        var token = TokenGenerator(model.Username);
+                        var token = TokenGenerator(model.Username,role);
 
                         return token;
                     }
@@ -99,9 +101,10 @@ namespace Data.Services.Identity
                             {
                                 Username = model.Username,
                                 Password = hashedPassword,
+                                Role = "User"
                             });
                             applicationDb.SaveChanges();
-                            return TokenGenerator(model.Username);
+                            return TokenGenerator(model.Username,"User");
                         }
 
                         return "Invalid Password";
@@ -115,7 +118,7 @@ namespace Data.Services.Identity
                 throw e;
             }
         }
-        private string TokenGenerator(string username)
+        private string TokenGenerator(string username,string role)
         {
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string file = Path.Combine(path, "tokenconfig.json");
@@ -137,7 +140,7 @@ namespace Data.Services.Identity
             var claim = new List<Claim>()
                                 {
                                   new Claim(ClaimTypes.Name,username),
-
+                                  new Claim(ClaimTypes.Role,role)
                                 };
 
 

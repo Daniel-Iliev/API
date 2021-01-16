@@ -11,6 +11,7 @@ namespace Data.Models.Models
         public string Username { get; set; }
         [Required]
         public string Password { get; set; }
+        public string Role { get; set; }
         public ICollection<Favourite> Favourites { get; set; }
     }
 }

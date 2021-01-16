@@ -25,15 +25,15 @@ namespace MusicAPI.Controllers
         }
         [Route("getall")]
         [HttpGet]
-        public IActionResult GetAll(string order,bool decending)
+        public IActionResult GetAll(string order, bool decending)
         {
-            return Ok(_service.GetAll(order,decending));
+            return Ok(_service.GetAll(order, decending));
         }
         [Route("getsongsofbyyear")]
         [HttpGet]
-        public IActionResult GetSongsOfByYear(string perfName,int year)
+        public IActionResult GetSongsOfByYear(string perfName, int year)
         {
-            return Ok(_service.GetSongsOfByYear(perfName,year));
+            return Ok(_service.GetSongsOfByYear(perfName, year));
         }
         [Authorize]
         [HttpPost]
@@ -45,19 +45,20 @@ namespace MusicAPI.Controllers
         [Authorize]
         [Route("updatesong")]
         [HttpPost]
-        public IActionResult UpdateSong(string name,SongPost song)
+        public IActionResult UpdateSong(string name, SongPost song)
         {
-            _service.UpdateSong(name,song);
+            _service.UpdateSong(name, song);
             return Ok(song);
         }
+        
+            [Authorize(Roles = "Admin")]
+            [Route("deletesong")]
+            [HttpDelete]
+            public IActionResult DeleteSong(string name)
+            {
 
-        [Authorize]
-        [Route("deletesong")]
-        [HttpDelete]
-        public IActionResult DeleteSong(string name)
-        {
-            
-            return Ok(_service.DeleteSong(name));
-        }
+                return Ok(_service.DeleteSong(name));
+            }
+        
     }
 }

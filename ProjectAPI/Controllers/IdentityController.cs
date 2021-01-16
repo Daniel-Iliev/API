@@ -3,6 +3,7 @@ using Data.Services.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Security.Principal;
 
 namespace MusicAPI.Controllers
 {
@@ -15,6 +16,7 @@ namespace MusicAPI.Controllers
         public IdentityController(UserService userService)
         {
             this._service = userService;
+
         }
         [HttpGet]
         public IActionResult Register([FromQuery] RegisterModel model)
@@ -49,6 +51,7 @@ namespace MusicAPI.Controllers
 
             return Ok(_service.ChangePassword(username,changePassword));
         }
+        
         [Authorize]
         [Route("changeusername")]
         [HttpPost]

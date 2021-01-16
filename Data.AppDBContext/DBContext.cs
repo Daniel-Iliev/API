@@ -49,27 +49,31 @@ namespace Data.AppDBContext
             modelBuilder.Entity<Performer>().HasMany(performer => performer.Songs);
             modelBuilder.Entity<Song>().HasMany(song => song.Favourites);
             modelBuilder.Entity<User>().HasMany(user => user.Favourites);
+
             List<User> users = new List<User>()
             {
                 new User()
                 {
                     Id=Guid.NewGuid().ToString(),
                     Username="George",
-                    Password="123",
+                    Password="havHcBwB/HJMHdkrqDZJPUixI7JqFX5DBzeLyfR2GPkRAlTb0oZ6WffOhY9S4L2LtK7a+C6LJ4Ry6ErSS7f2vw==",
+                    Role = "User",
                     CreatedAt=DateTime.Now
                 },
                 new User()
                 {
                     Id=Guid.NewGuid().ToString(),
-                    Username="Martin",
-                     Password="123",
+                    Username="Admin",
+                    Password="havHcBwB/HJMHdkrqDZJPUixI7JqFX5DBzeLyfR2GPkRAlTb0oZ6WffOhY9S4L2LtK7a+C6LJ4Ry6ErSS7f2vw==",
+                    Role = "Admin",
                     CreatedAt=DateTime.Now
                 },
                 new User()
                 {
                     Id=Guid.NewGuid().ToString(),
                     Username="Jake",
-                     Password="123",
+                    Password="havHcBwB/HJMHdkrqDZJPUixI7JqFX5DBzeLyfR2GPkRAlTb0oZ6WffOhY9S4L2LtK7a+C6LJ4Ry6ErSS7f2vw==",
+                    Role = "User",
                     CreatedAt=DateTime.Now
                 }
             };
@@ -96,7 +100,7 @@ namespace Data.AppDBContext
              };
             List<Album> albums = new List<Album>()
             {
-                new Album
+                new Album()
                 {
                      Id = Guid.NewGuid().ToString(),
                      Name = "Ride The Lightning",
@@ -104,7 +108,7 @@ namespace Data.AppDBContext
                      PerformerId=performers[0].Id,
                      CreatedAt = DateTime.Now
                 },
-                 new Album
+                 new Album()
                 {
                      Id = Guid.NewGuid().ToString(),
                      Name = "Master Of Puppets",
@@ -112,7 +116,7 @@ namespace Data.AppDBContext
                      PerformerId=performers[0].Id,
                      CreatedAt = DateTime.Now
                 },
-                  new Album
+                  new Album()
                 {
                      Id = Guid.NewGuid().ToString(),
                      Name = "Fear Of The Dark",
@@ -120,7 +124,7 @@ namespace Data.AppDBContext
                      PerformerId=performers[1].Id,
                      CreatedAt = DateTime.Now
                 },
-                   new Album
+                   new Album()
                 {
                      Id = Guid.NewGuid().ToString(),
                      Name = "Meteora",

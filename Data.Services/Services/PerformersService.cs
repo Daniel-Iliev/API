@@ -164,5 +164,30 @@ namespace Data.Services.Services
             }
         }
 
+        public string DeletePerformer(string perfName)
+        {
+            using (applicationDb)
+            {
+                var performer = applicationDb.Performers.FirstOrDefault(x => x.Name == perfName);
+                var song = applicationDb.Songs.FirstOrDefault(x => x.PerformerId == performer.Id);
+                var album = applicationDb.Albums.FirstOrDefault(x => x.PerformerId == performer.Id);
+                if (performer != null)
+                {
+                    if (album != null)
+                    {
+                        if (song != null)
+                        {
+                            return "Performer can not be deleted while it is in songs";
+                        }
+                        return "Performer can not be deleted while it is in album";
+                    }
+                    applicationDb.Remove(performer);
+                    applicationDb.SaveChanges();
+                    return "Performer " + '"' + perfName + '"' + " has been deleted succesfully";
+                }
+                return "Performer " + '"' + perfName + '"' + " does not exist";
+            }
+        }
+
     }
 }
