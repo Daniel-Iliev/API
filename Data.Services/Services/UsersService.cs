@@ -124,20 +124,25 @@ namespace Data.Services.Services
         {
             using (applicationDb)
             {
-
-                var song = applicationDb.Songs.FirstOrDefault(x => x.Name == songName);
                 var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
                 if (findUser!=null) 
                 {
-                    var data = new Favourite()
+                    var song = applicationDb.Songs.FirstOrDefault(x => x.Name == songName);
+                    if (song != null)
                     {
-                        UserId = findUser.Id,
-                        SongId = song.Id,
-                        CreatedAt = DateTime.Now
-                    };
-                    applicationDb.Favourites.Add(data);
-                    applicationDb.SaveChanges();
-                    return "Song " + '"' + songName + '"' + " added to favourites succesfully";
+                        var data = new Favourite()
+                        {
+                            UserId = findUser.Id,
+                            SongId = song.Id,
+                            CreatedAt = DateTime.Now
+                        };
+                        applicationDb.Favourites.Add(data);
+                        applicationDb.SaveChanges();
+                        return "Song " + '"' + songName + '"' + " added to favourites succesfully";
+                    }
+                    else {
+                        return "Song " + '"' + songName + '"' + " does not exist";
+                    }
                 }
                 return "Invalid Token";
             }
@@ -149,19 +154,83 @@ namespace Data.Services.Services
             {
                 var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
                 var song = applicationDb.Songs.FirstOrDefault(x => x.Name == songname);
-                var favs = applicationDb.Favourites.FirstOrDefault(x => x.SongId == song.Id && x.UserId == findUser.Id);
-                if (song!=null) {
+                var favourite = applicationDb.Favourites.FirstOrDefault(x => x.SongId == song.Id && x.UserId == findUser.Id);
+                if (findUser != null)
+                {
+                    if (song != null)
+                    {
+                        if (favourite != null)
+                        {
+
+                            applicationDb.Favourites.Remove(favourite);
+                            applicationDb.SaveChanges();
+                            return "Song " + '"' + songname + '"' + " has been succesfully deleted from your favourites";
+                        }
+                        return "Song " + '"' + songname + '"' + " does not exist in your favourites";
+                    }
+                    return "Song " + '"' + songname + '"' + " does not exist";
+                }
+                return "Invalid token";
+            }
+        }
+        public string DeleteUser(string username)
+        {
+            using (applicationDb)
+            {
+                var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
+                var favs = applicationDb.Favourites.FirstOrDefault(x=>x.UserId == findUser.Id);
+                if (findUser != null)
+                {
                     if (favs != null)
                     {
-
-                        applicationDb.Favourites.Remove(favs);
-                        applicationDb.SaveChanges();
-                        return "Song " + '"' + songname + '"' + " has been succesfully deleted from your favourites";
+                        return "User " + '"' + username + '"' + " can not be deleted while it has favourites";
                     }
-                    return "Song " + '"' + songname + '"' + " does not exist in your favourites";
+
+                    applicationDb.Users.Remove(findUser);
+                    applicationDb.SaveChanges();
+                    return "User " + '"' + username + '"' + " has been succesfully deleted";
+                   
                 }
-                return "Song " + '"' + songname + '"' + " does not exist";
+                return "User " + '"' + username + '"' + " does not exist";
             }
+        }
+        public string UpdateUserRole(string username,string role)
+        {
+            using (applicationDb)
+            {
+                var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
+                if (findUser != null)
+                {
+                    if (findUser.Role == role)
+                    {
+                        return "User is already in that role";
+                    }
+                    findUser.Role = role;
+                    findUser.ModifiedAt = DateTime.Now;
+                    applicationDb.SaveChanges();
+                    return "User " + '"' + username + '"' + "'s role been succesfully changed to " + role;
+                }
+                return "User " + '"' + username + '"' + " does not exist";
+            }
+        }
+        public List<FavouriteDto> GetFavourites(string username)
+        {
+            using (applicationDb)
+            {
+                var favourites = new List<FavouriteDto>();
+                            favourites = applicationDb.Users
+                            .Where(x =>x.Username == username)
+                           .Include(x => x.Favourites)
+                           .ThenInclude(x => x.Song)
+                           .Select(x => new FavouriteDto()
+                           {
+                               FavouriteSongs= x.Favourites.Select(z => z.Song.Name).ToList(),
+                           })
+                          
+                           .ToList();
+                            return (favourites);
+            }
+        
         }
 
     }

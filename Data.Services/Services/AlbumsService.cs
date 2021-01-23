@@ -219,60 +219,111 @@ namespace Data.Services.Services
                 return (albums);
             }
         }
-        public void AddAlbum(AlbumPost album)
+        public string AddAlbum(AlbumPost album)
         {
             using (applicationDb)
             {
-                var perf = applicationDb.Performers.FirstOrDefault(x=>x.Name==album.Performer);
-                var data = new Album()
+                var check = applicationDb.Albums.FirstOrDefault(x=>x.Name == album.Name);
+                if (check == null)
                 {
-                    Name = album.Name,
-                    YearReleased = album.YearReleased,
-                    PerformerId = perf.Id,
-                    CreatedAt = DateTime.Now
-                };
-                applicationDb.Albums.Add(data);
-
-                applicationDb.SaveChanges();
-
+                    var performer = applicationDb.Performers.FirstOrDefault(x => x.Name == album.Performer);
+                    if (performer != null)
+                    {
+                        var data = new Album()
+                        {
+                            Name = album.Name,
+                            YearReleased = album.YearReleased,
+                            PerformerId = performer.Id,
+                            CreatedAt = DateTime.Now
+                        };
+                        applicationDb.Albums.Add(data);
+                        applicationDb.SaveChanges();
+                        return "Album " + '"' + album.Name + '"' + " has been added succesfully";
+                    }
+                    return "Performer " + '"' + album.Performer + '"' + " does not exist";
+                }
+                return "Album " + '"' + album.Name + '"' + " already exists";
             }
         }
-        public void AddAlbumGenre( AlbumGenrePost albumGenrePost)
+        public string AddAlbumGenre( AlbumGenrePost albumGenrePost)
         {
             using (applicationDb)
             {
                
-                var genr = applicationDb.Genres.FirstOrDefault(x => x.Name == albumGenrePost.Genre);
-                var alb = applicationDb.Albums.FirstOrDefault(x => x.Name == albumGenrePost.Album);
-                var data = new AlbumGenre()
+                var genre = applicationDb.Genres.FirstOrDefault(x => x.Name == albumGenrePost.Genre);
+                var album = applicationDb.Albums.FirstOrDefault(x => x.Name == albumGenrePost.Album);
+                if (genre != null && album != null)
                 {
-                    AlbumId = alb.Id,
-                    GenreId = genr.Id,
-                };
-                applicationDb.AlbumGenres.Add(data);
 
-                applicationDb.SaveChanges();
+                    var check = applicationDb.AlbumGenres.FirstOrDefault(x => x.GenreId == genre.Id && x.AlbumId == album.Id);
+                    if (check == null)
+                    {
+                        var data = new AlbumGenre()
+                        {
+                            AlbumId = album.Id,
+                            GenreId = genre.Id,
+                        };
+                        applicationDb.AlbumGenres.Add(data);
+                        applicationDb.SaveChanges();
+                        return "Genre " + '"' + genre.Name + '"' + " has been added to Album " + '"' + album.Name + '"' + " succesfully";
+                    }
+                    return "Album " + '"' + album.Name + '"' + " already has Genre " + '"' + genre.Name + '"';
+                }
+                else if (genre == null) {
+                    return "Genre " + '"' + albumGenrePost.Genre + '"' + " does not exist";
+                }
+                
+                    return "Album " + '"' + albumGenrePost.Album + '"' + " does not exist";
+                
 
             }
         }
-        public void UpdateAlbum(string albumname, AlbumPost album)
+        public string UpdateAlbum(string albumName, AlbumPost album)
         {
             using (applicationDb)
             {
-                var findalbum = applicationDb.Albums.FirstOrDefault(x => x.Name == albumname);
-                var perf = applicationDb.Performers.FirstOrDefault(x => x.Name == album.Performer);
+                var findalbum = applicationDb.Albums.FirstOrDefault(x => x.Name == albumName);
                 if (findalbum != null)
                 {
-
-                    findalbum.Name = album.Name;
-                    findalbum.PerformerId = perf.Id;
-                    findalbum.YearReleased = album.YearReleased;
-                    findalbum.ModifiedAt = DateTime.Now;
-                    applicationDb.SaveChanges();
+                    var performer = applicationDb.Performers.FirstOrDefault(x => x.Name == album.Performer);
+                    if (performer != null)
+                    {
+                        findalbum.Name = album.Name;
+                        findalbum.PerformerId = performer.Id;
+                        findalbum.YearReleased = album.YearReleased;
+                        findalbum.ModifiedAt = DateTime.Now;
+                        applicationDb.SaveChanges();
+                        return "Album " + '"' + albumName + '"' + " has been updated succesfully";
+                    }
+                    return "Performer " + '"' + album.Performer + '"' + " does not exist";
                 }
+                return "Album " + '"' + albumName + '"' + " does not exist";
             }
         }
-
+        public string DeleteAlbum(string albumName)
+        {
+            using (applicationDb)
+            {
+                var album = applicationDb.Albums.FirstOrDefault(x => x.Name == albumName);
+                var songs = applicationDb.Songs.FirstOrDefault(x => x.AlbumId == album.Id);
+                var albumGenres = applicationDb.AlbumGenres.FirstOrDefault(x => x.AlbumId == album.Id);
+                if (album != null)
+                {
+                    if (songs != null)
+                    {
+                        return "Album can not be deleted while it has songs";
+                    }
+                    else if(albumGenres != null)
+                    {
+                        return "Album can not be deleted while it has a genre";
+                    }
+                    applicationDb.Remove(album);
+                    applicationDb.SaveChanges();
+                    return "Album " + '"' + albumName + '"' + " has been deleted succesfully";
+                }
+                return "Album " + '"' + albumName + '"' + " does not exist";
+            }
+        }
 
 
     }

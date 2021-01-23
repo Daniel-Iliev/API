@@ -29,6 +29,7 @@ namespace MusicAPI.Controllers
             _service = service;
 
         }
+        [Authorize(Roles = "Admin")]
         [Route("getall")]
         [HttpGet]
         public IActionResult GetAll(string order,bool decending)
@@ -36,7 +37,7 @@ namespace MusicAPI.Controllers
             return Ok(_service.GetAll(order,decending));
         }
         [Authorize]
-        [Route("addfav")]
+        [Route("addfavourite")]
         [HttpPost]
         public IActionResult AddFavourite(string songName)
         {
@@ -47,7 +48,7 @@ namespace MusicAPI.Controllers
             return Ok(_service.AddFavourite(username,songName));
         }
         [Authorize]
-        [Route("deletefav")]
+        [Route("deletefavourite")]
         [HttpDelete]
         public IActionResult DeleteFavourite(string songName)
         {
@@ -59,6 +60,30 @@ namespace MusicAPI.Controllers
             return Ok(_service.DeleteFavourite(username,songName));
         }
 
+        [Authorize(Roles = "Admin")]
+        [Route("deleteuser")]
+        [HttpDelete]
+        public IActionResult DeleteUser(string username)
+        {
+            return Ok(_service.DeleteUser(username));
+        }
+        [Authorize(Roles = "Admin")]
+        [Route("updateuserrole")]
+        [HttpPost]
+        public IActionResult UpdateUserRole(string username, string role)
+        {
+            return Ok(_service.UpdateUserRole(username,role));
+        }
+        [Authorize]
+        [Route("getfavourites")]
+        [HttpGet]
+        public IActionResult GetFavourites()
+        {
+            string username;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
 
+            username = identity.Name;
+            return Ok(_service.GetFavourites(username));
+        }
     }
 }

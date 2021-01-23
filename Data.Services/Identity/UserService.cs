@@ -24,6 +24,22 @@ namespace Data.Services.Identity
         {
             applicationDb = dbContext;
         }
+        public string DeleteAccount(string password,string username)
+        {
+            using (applicationDb)
+            {
+                var user = applicationDb.Users.FirstOrDefault(x => x.Username == username);
+                if (user != null)
+                {
+                    if (Hash(password)==user.Password) {
+                        applicationDb.Remove(user);
+                        applicationDb.SaveChanges();
+                        return "Your account has been deleted succesfully";
+                    }
+                }
+                return "Invalid Token";
+            }
+        }
         public string ChangeUsername(string username, string newUsername)
         {
             using (applicationDb)

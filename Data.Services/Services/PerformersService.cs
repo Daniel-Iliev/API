@@ -132,60 +132,66 @@ namespace Data.Services.Services
                 return (performers);
             }
         }
-        public void AddPerformer(PerformerPost performer)
+        public string AddPerformer(PerformerPost performer)
         {
             using (applicationDb)
             {
-
-                var data = new Performer()
+                var check = applicationDb.Performers.FirstOrDefault(x => x.Name == performer.Name);
+                if (check == null)
                 {
-                    Name = performer.Name,
-                    CreatedAt = DateTime.Now
-                };
-                applicationDb.Performers.Add(data);
-
-
-                applicationDb.SaveChanges();
-
+                    var data = new Performer()
+                    {
+                        Name = performer.Name,
+                        CreatedAt = DateTime.Now
+                    };
+                    applicationDb.Performers.Add(data);
+                    applicationDb.SaveChanges();
+                    return "Performer " + '"' + performer.Name + '"' + " has been added succesfully";
+                }
+                return "Performer " + '"' + performer.Name + '"' + " already exists";
             }
         }
-        public void UpdatePerformer(string name, PerformerPost performer)
+        public string UpdatePerformer(string performerName, PerformerPost performer)
         {
             using (applicationDb)
             {
-                var findPerformer = applicationDb.Performers.FirstOrDefault(x => x.Name == name);
+                var findPerformer = applicationDb.Performers.FirstOrDefault(x => x.Name == performerName);
                 if (findPerformer != null)
                 {
 
                     findPerformer.Name = performer.Name;
                     findPerformer.ModifiedAt = DateTime.Now;
                     applicationDb.SaveChanges();
+                    return "Performer " + '"' + performer.Name + '"' + " has been updated succesfully";
                 }
+                return "Performer " + '"' + performerName + '"' + " has been added succesfully";
+
             }
         }
 
-        public string DeletePerformer(string perfName)
+        public string DeletePerformer(string performerName)
         {
             using (applicationDb)
             {
-                var performer = applicationDb.Performers.FirstOrDefault(x => x.Name == perfName);
+                var performer = applicationDb.Performers.FirstOrDefault(x => x.Name == performerName);
                 var song = applicationDb.Songs.FirstOrDefault(x => x.PerformerId == performer.Id);
                 var album = applicationDb.Albums.FirstOrDefault(x => x.PerformerId == performer.Id);
                 if (performer != null)
                 {
                     if (album != null)
                     {
-                        if (song != null)
-                        {
-                            return "Performer can not be deleted while it is in songs";
-                        }
-                        return "Performer can not be deleted while it is in album";
+                       
+                        return "Performer can not be deleted while it has albums";
+                    }
+                    if (song != null)
+                    {
+                        return "Performer can not be deleted while it has songs";
                     }
                     applicationDb.Remove(performer);
                     applicationDb.SaveChanges();
-                    return "Performer " + '"' + perfName + '"' + " has been deleted succesfully";
+                    return "Performer " + '"' + performerName + '"' + " has been deleted succesfully";
                 }
-                return "Performer " + '"' + perfName + '"' + " does not exist";
+                return "Performer " + '"' + performerName + '"' + " does not exist";
             }
         }
 

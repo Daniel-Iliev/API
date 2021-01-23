@@ -29,27 +29,35 @@ namespace MusicAPI.Controllers
             _service = service;
 
         }
+        [Authorize]
         [Route("getall")]
         [HttpGet]
         public IActionResult GetAll (string order,bool decending)
         {
             return Ok(_service.GetAll(order,decending));
         }
-        [Authorize]
+        [Route("addgenre")]
+        [Authorize(Roles = "Moderator,Admin")]
         [HttpPost]
-        public IActionResult AddGenre([FromQuery] GenrePost  genre)
+        public IActionResult AddGenre(GenrePost  genre)
         {
-            _service.AddGenre(genre);
-            return Ok(genre);
+            return Ok(_service.AddGenre(genre));
         }
-        [Authorize]
+        [Authorize(Roles = "Moderator,Admin")]
         [Route("updategenre")]
         [HttpPost]
         public IActionResult UpdateGenre(string name, GenrePost genre)
         {
-            _service.UpdateGenre(name, genre);
-            return Ok(genre);
+            return Ok(_service.UpdateGenre(name,genre));
         }
-
+        
+        [Authorize(Roles = "Moderator,Admin")]
+        [Route("deletegenre")]
+        [HttpDelete]
+        public IActionResult DeleteGenre(string genreName)
+        {
+            
+            return Ok(_service.DeleteGenre(genreName));
+        }
     }
 }

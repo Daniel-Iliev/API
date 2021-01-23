@@ -123,24 +123,27 @@ namespace Data.Services.Services
                 return (genres);
             }
         }
-        public void AddGenre(GenrePost genre)
+        public string AddGenre(GenrePost genre)
         {
             using (applicationDb)
             {
-               
-                var data = new Genre()
+
+                var check = applicationDb.Genres.FirstOrDefault(x => x.Name == genre.Name);
+                if (check == null)
                 {
-                    Name = genre.Name,
-                    CreatedAt = DateTime.Now
-                };
-                applicationDb.Genres.Add(data);
-
-
-                applicationDb.SaveChanges();
-
+                    var data = new Genre()
+                    {
+                        Name = genre.Name,
+                        CreatedAt = DateTime.Now
+                    };
+                    applicationDb.Genres.Add(data);
+                    applicationDb.SaveChanges();
+                    return "Genre " + '"' + genre.Name + '"' + " has been added succesfully";
+                }
+                return "Genre " + '"' + genre.Name + '"' + " already exists";
             }
         }
-        public void UpdateGenre(string name, GenrePost genre)
+        public string UpdateGenre(string name, GenrePost genre)
         {
             using (applicationDb)
             {
@@ -151,7 +154,29 @@ namespace Data.Services.Services
                     findGenre.Name = genre.Name;
                     findGenre.ModifiedAt = DateTime.Now;
                     applicationDb.SaveChanges();
+                    return "Genre " + '"' + name + '"' + " has been updated succesfully";
                 }
+                return "Genre " + '"' + genre.Name + '"' + " does not exist";
+            }
+        }
+        public string DeleteGenre(string genreName)
+        {
+            using (applicationDb)
+            {
+                var genre = applicationDb.Genres.FirstOrDefault(x => x.Name == genreName);
+                var albumGenres = applicationDb.AlbumGenres.FirstOrDefault(x => x.GenreId == genre.Id);
+                if (genre != null)
+                {
+                    if (albumGenres != null)
+                    {
+                        return "Genre can not be deleted while it has albums";
+                    }
+                   
+                    applicationDb.Remove(genre);
+                    applicationDb.SaveChanges();
+                    return "Genre " + '"' + genreName + '"' + " has been deleted succesfully";
+                }
+                return "Genre " + '"' + genreName + '"' + " does not exist";
             }
         }
 

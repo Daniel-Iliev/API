@@ -25,34 +25,41 @@ namespace MusicAPI.Controllers
             _service = service;
 
         }
+        [Authorize]
         [Route("getall")]
         [HttpGet]
         public IActionResult GetAll(string order,bool decending)
         {
             return Ok(_service.GetAll(order,decending));
         }
-        [Authorize]
+        [Route("addalbum")]
+        [Authorize(Roles = "Moderator,Admin")]
         [HttpPost]
-        public IActionResult AddAlbum([FromQuery] AlbumPost album)
+        public IActionResult AddAlbum(AlbumPost album)
         {
-             _service.AddAlbum(album);
-            return Ok(album);
+            return Ok(_service.AddAlbum(album));
         }
-        [Authorize]
+        [Authorize(Roles = "Moderator,Admin")]
         [Route("addalbumgenre")]
         [HttpPost]
         public IActionResult AddAlbumGenre(AlbumGenrePost albumGenrePost)
         {
-            _service.AddAlbumGenre( albumGenrePost);
-            return Ok(albumGenrePost);
+            return Ok(_service.AddAlbumGenre(albumGenrePost));
         }
-        [Authorize]
+        [Authorize(Roles = "Moderator,Admin")]
         [Route("updatealbum")]
         [HttpPost]
         public IActionResult Updatealbum(string name, AlbumPost album)
         {
-            _service.UpdateAlbum(name, album);
-            return Ok(album);
+            return Ok(_service.UpdateAlbum(name,album));
+        }
+        [Authorize(Roles = "Moderator,Admin")]
+        [Route("deletealbum")]
+        [HttpDelete]
+        public IActionResult DeleteAlbum(string albumName)
+        {
+            
+            return Ok(_service.DeleteAlbum(albumName));
         }
     }
 }

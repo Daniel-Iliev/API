@@ -5,7 +5,6 @@ namespace Data.Models.Models
 {
     public class Song : BaseModel
     {
-
         public string Name { get; set; }
         public ICollection<Favourite> Favourites { get; set; }
         public string AlbumId { get; set; }

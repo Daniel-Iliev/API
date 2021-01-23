@@ -18,8 +18,9 @@ namespace MusicAPI.Controllers
             this._service = userService;
 
         }
+        [Route("register")]
         [HttpGet]
-        public IActionResult Register([FromQuery] RegisterModel model)
+        public IActionResult Register(RegisterModel model)
         {
             var token = _service.Register(model);
             if (string.IsNullOrEmpty(token))
@@ -28,6 +29,7 @@ namespace MusicAPI.Controllers
             }
             return Ok(token);
         }
+        [Route("login")]
         [HttpPost]
         public IActionResult Login(LoginModel model)
         {
@@ -39,8 +41,9 @@ namespace MusicAPI.Controllers
             return Ok(token);
         }
         [Authorize]
-        [HttpPost]
         [Route("changepassword")]
+        [HttpPost]
+        
         public IActionResult ChangePassword(ChangePassword changePassword)
         {
             string username;
@@ -62,6 +65,20 @@ namespace MusicAPI.Controllers
 
             username = identity.Name;
             string token = _service.ChangeUsername(username, newUsername);
+
+
+            return Ok(token);
+        }
+        [Authorize]
+        [Route("deleteacc")]
+        [HttpDelete]
+        public IActionResult DeleteAcc(string password)
+        {
+            string username;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            username = identity.Name;
+            string token = _service.ChangeUsername(password,username);
 
 
             return Ok(token);

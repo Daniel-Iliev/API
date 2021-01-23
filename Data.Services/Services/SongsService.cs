@@ -387,42 +387,66 @@ namespace Data.Services.Services
             }
         }
        
-        public void AddSong(SongPost song)
+        public string AddSong(SongPost song)
         {
             using (applicationDb)
             {
-                var perf = applicationDb.Performers.FirstOrDefault(x => x.Name == song.PerformerName);
-                var alb = applicationDb.Albums.FirstOrDefault(x => x.Name == song.AlbumName);
-                var data = new Song()
+                var check = applicationDb.Songs.FirstOrDefault(x => x.Name == song.Name);
+                if (check == null)
                 {
-                    Name = song.Name,
-                    PerformerId = perf.Id,
-                    AlbumId = alb.Id,
-                    CreatedAt = DateTime.Now
-                };
-                applicationDb.Songs.Add(data);
-
-
-                applicationDb.SaveChanges();
-
+                    var performer = applicationDb.Performers.FirstOrDefault(x => x.Name == song.PerformerName);
+                    var album = applicationDb.Albums.FirstOrDefault(x => x.Name == song.AlbumName);
+                    if (performer != null && album != null)
+                    {
+                        var data = new Song()
+                        {
+                            Name = song.Name,
+                            PerformerId = performer.Id,
+                            AlbumId = album.Id,
+                            CreatedAt = DateTime.Now
+                        };
+                        applicationDb.Songs.Add(data);
+                        applicationDb.SaveChanges();
+                        return "Song " + '"' + song.Name + '"' + " has been added succesfully";
+                    }
+                    else if (performer == null){ 
+                        return "Performer " + '"' + song.PerformerName + '"' + " does not exist";
+                    }
+                    else if (album == null){
+                       return "Album " + '"' + song.AlbumName + '"' + " does not exist";
+                    }
+                }
+                return "Song " + '"' + song.Name + '"' + " already exists";
             }
         }
-        public void UpdateSong(string songname,SongPost song)
+        public string UpdateSong(string songName,SongPost song)
         {
             using (applicationDb)
             {
-                var findsong = applicationDb.Songs.FirstOrDefault(x => x.Name == songname);
-                var perf = applicationDb.Performers.FirstOrDefault(x => x.Name == song.PerformerName);
-                var alb = applicationDb.Albums.FirstOrDefault(x => x.Name == song.AlbumName);
+                var findsong = applicationDb.Songs.FirstOrDefault(x => x.Name == songName);
                 if (findsong != null)
                 {
-
-                    findsong.Name = song.Name;
-                    findsong.PerformerId = perf.Id;
-                    findsong.AlbumId = alb.Id;
-                    findsong.ModifiedAt = DateTime.Now;
-                    applicationDb.SaveChanges();
+                    var performer = applicationDb.Performers.FirstOrDefault(x => x.Name == song.PerformerName);
+                    var album = applicationDb.Albums.FirstOrDefault(x => x.Name == song.AlbumName);
+                    if (performer != null && album != null)
+                    {
+                        findsong.Name = song.Name;
+                        findsong.PerformerId = performer.Id;
+                        findsong.AlbumId = album.Id;
+                        findsong.ModifiedAt = DateTime.Now;
+                        applicationDb.SaveChanges();
+                        return "Song " + '"' + songName + '"' + " has been updated succesfully";
+                    }
+                    else if (performer == null)
+                    {
+                        return "Performer " + '"' + song.PerformerName + '"' + " does not exist";
+                    }
+                    else if (album == null)
+                    {
+                        return "Album " + '"' + song.AlbumName + '"' + " does not exist";
+                    }
                 }
+                return "Song " + '"' + songName + '"' + " does not exist";
             }
         }
 

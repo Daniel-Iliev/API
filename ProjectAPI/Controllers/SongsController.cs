@@ -23,42 +23,43 @@ namespace MusicAPI.Controllers
             _service = service;
 
         }
+        [Authorize]
         [Route("getall")]
         [HttpGet]
         public IActionResult GetAll(string order, bool decending)
         {
             return Ok(_service.GetAll(order, decending));
         }
+        [Authorize]
         [Route("getsongsofbyyear")]
         [HttpGet]
         public IActionResult GetSongsOfByYear(string perfName, int year)
         {
             return Ok(_service.GetSongsOfByYear(perfName, year));
         }
-        [Authorize]
+        [Route("addsong")]
+        [Authorize(Roles = "Moderator,Admin")]
         [HttpPost]
-        public IActionResult AddSong([FromQuery] SongPost song)
+        public IActionResult AddSong(SongPost song)
         {
-            _service.AddSong(song);
-            return Ok(song);
+            return Ok(_service.AddSong(song));
         }
-        [Authorize]
+        [Authorize(Roles = "Moderator,Admin")]
         [Route("updatesong")]
         [HttpPost]
         public IActionResult UpdateSong(string name, SongPost song)
         {
-            _service.UpdateSong(name, song);
-            return Ok(song);
+            return Ok(_service.UpdateSong(name,song));
         }
         
-            [Authorize(Roles = "Admin")]
-            [Route("deletesong")]
-            [HttpDelete]
-            public IActionResult DeleteSong(string name)
-            {
+        [Authorize(Roles = "Moderator,Admin")]
+        [Route("deletesong")]
+        [HttpDelete]
+        public IActionResult DeleteSong(string songName)
+        {
 
-                return Ok(_service.DeleteSong(name));
-            }
-        
+            return Ok(_service.DeleteSong(songName));
+        }
+       
     }
 }

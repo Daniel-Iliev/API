@@ -20,7 +20,7 @@ namespace MusicAPI.Controllers
         private IConfiguration _configuration;
         private PerformersService _service;
 
-        public PerformersController(IWebHostEnvironment env, IConfiguration configuration,PerformersService service)
+        public PerformersController(IWebHostEnvironment env, IConfiguration configuration, PerformersService service)
         {
             webHostEnvironment = env;
 
@@ -28,26 +28,35 @@ namespace MusicAPI.Controllers
             _service = service;
 
         }
+        [Authorize]
         [Route("getall")]
         [HttpGet]
-        public IActionResult GetAll(string order,bool decending)
+        public IActionResult GetAll(string order, bool decending)
         {
-            return Ok(_service.GetAll(order,decending));
+            return Ok(_service.GetAll(order, decending));
         }
-        [Authorize]
+        [Route("addperformer")]
+        [Authorize(Roles = "Moderator,Admin")]
         [HttpPost]
-        public IActionResult AddPerformer([FromQuery] PerformerPost performer)
+        public IActionResult AddPerformer(PerformerPost performer)
         {
-            _service.AddPerformer(performer);
-            return Ok(performer);
+            return Ok(_service.AddPerformer(performer));
         }
-        [Authorize]
+        [Authorize(Roles = "Moderator,Admin")]
         [Route("updateperformer")]
         [HttpPost]
         public IActionResult UpdatePerformer(string name, PerformerPost performer)
         {
-            _service.UpdatePerformer(name, performer);
-            return Ok(performer);
+            return Ok(_service.UpdatePerformer(name,performer));
+        }
+
+        [Authorize(Roles = "Moderator,Admin")]
+        [Route("deleteperformer")]
+        [HttpDelete]
+        public IActionResult DeletePerformer(string performerName)
+        {
+
+            return Ok(_service.DeletePerformer(performerName));
         }
     }
 }
