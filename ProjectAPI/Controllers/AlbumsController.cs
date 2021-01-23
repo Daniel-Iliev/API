@@ -61,5 +61,14 @@ namespace MusicAPI.Controllers
             
             return Ok(_service.DeleteAlbum(albumName));
         }
+
+        [Authorize(Roles = "Moderator,Admin")]
+        [Route("deletealbumgenre")]
+        [HttpDelete]
+        public IActionResult DeleteAlbumGenre(string albumName,string genreName)
+        {
+
+            return Ok(_service.DeleteAlbumGenre(albumName,genreName));
+        }
     }
 }

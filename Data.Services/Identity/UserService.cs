@@ -31,33 +31,40 @@ namespace Data.Services.Identity
                 var user = applicationDb.Users.FirstOrDefault(x => x.Username == username);
                 if (user != null)
                 {
+                    var favourites = applicationDb.Favourites.FirstOrDefault(x => x.UserId == user.Id);
+                    if (favourites != null) {
+                        return "Cannot delete account while you have favourites";
+                    }
                     if (Hash(password)==user.Password) {
                         applicationDb.Remove(user);
                         applicationDb.SaveChanges();
                         return "Your account has been deleted succesfully";
                     }
+                    return "Wrong password";
                 }
-                return "Invalid Token";
+                return "Invalid user";
             }
         }
         public string ChangeUsername(string username, string newUsername)
         {
             using (applicationDb)
             {
-
-                var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
-                var role = findUser.Role;
-                if (findUser != null)
+                if (username != null)
                 {
-
-                    findUser.Username = newUsername;
-                    findUser.ModifiedAt = DateTime.Now;
-                    applicationDb.SaveChanges();
-                    var token = TokenGenerator(newUsername,role);
-                    return token;
+                    var findUser = applicationDb.Users.FirstOrDefault(x => x.Username == username);
+                   
+                    if (findUser != null)
+                    {
+                        var role = findUser.Role;
+                        findUser.Username = newUsername;
+                        applicationDb.SaveChanges();
+                        var token = TokenGenerator(newUsername, role);
+                        return token;
+                    }
+                    return "Invalid user";
                 }
-                return "Invalid User";
-
+                return "Please insert your new username";
+                
             }
         }
 
@@ -71,14 +78,13 @@ namespace Data.Services.Identity
                 {
                     if (Hash(changePassword.OldPassword)==findUser.Password) {
                         findUser.Password = Hash(changePassword.NewPassword);
-                        findUser.ModifiedAt = DateTime.Now;
                         applicationDb.SaveChanges();
                         return "Password has been changed";
                     }
                     return "Wrong Password";
                     
                 }
-                return "Invalid token";
+                return "Invalid user";
 
             }
         }

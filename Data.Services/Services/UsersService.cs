@@ -133,8 +133,7 @@ namespace Data.Services.Services
                         var data = new Favourite()
                         {
                             UserId = findUser.Id,
-                            SongId = song.Id,
-                            CreatedAt = DateTime.Now
+                            SongId = song.Id
                         };
                         applicationDb.Favourites.Add(data);
                         applicationDb.SaveChanges();
@@ -206,7 +205,6 @@ namespace Data.Services.Services
                         return "User is already in that role";
                     }
                     findUser.Role = role;
-                    findUser.ModifiedAt = DateTime.Now;
                     applicationDb.SaveChanges();
                     return "User " + '"' + username + '"' + "'s role been succesfully changed to " + role;
                 }

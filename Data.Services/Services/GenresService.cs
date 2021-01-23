@@ -133,8 +133,7 @@ namespace Data.Services.Services
                 {
                     var data = new Genre()
                     {
-                        Name = genre.Name,
-                        CreatedAt = DateTime.Now
+                        Name = genre.Name
                     };
                     applicationDb.Genres.Add(data);
                     applicationDb.SaveChanges();
@@ -152,7 +151,6 @@ namespace Data.Services.Services
                 {
 
                     findGenre.Name = genre.Name;
-                    findGenre.ModifiedAt = DateTime.Now;
                     applicationDb.SaveChanges();
                     return "Genre " + '"' + name + '"' + " has been updated succesfully";
                 }
@@ -164,9 +162,10 @@ namespace Data.Services.Services
             using (applicationDb)
             {
                 var genre = applicationDb.Genres.FirstOrDefault(x => x.Name == genreName);
-                var albumGenres = applicationDb.AlbumGenres.FirstOrDefault(x => x.GenreId == genre.Id);
                 if (genre != null)
                 {
+
+                    var albumGenres = applicationDb.AlbumGenres.FirstOrDefault(x => x.GenreId == genre.Id);
                     if (albumGenres != null)
                     {
                         return "Genre can not be deleted while it has albums";

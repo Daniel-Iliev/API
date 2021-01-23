@@ -402,8 +402,7 @@ namespace Data.Services.Services
                         {
                             Name = song.Name,
                             PerformerId = performer.Id,
-                            AlbumId = album.Id,
-                            CreatedAt = DateTime.Now
+                            AlbumId = album.Id
                         };
                         applicationDb.Songs.Add(data);
                         applicationDb.SaveChanges();
@@ -433,7 +432,6 @@ namespace Data.Services.Services
                         findsong.Name = song.Name;
                         findsong.PerformerId = performer.Id;
                         findsong.AlbumId = album.Id;
-                        findsong.ModifiedAt = DateTime.Now;
                         applicationDb.SaveChanges();
                         return "Song " + '"' + songName + '"' + " has been updated succesfully";
                     }
@@ -455,9 +453,9 @@ namespace Data.Services.Services
             using (applicationDb)
             {
                 var song = applicationDb.Songs.FirstOrDefault(x => x.Name == songname);
-                var favs = applicationDb.Favourites.FirstOrDefault(x=>x.SongId == song.Id); 
                 if (song != null)
                 {
+                    var favs = applicationDb.Favourites.FirstOrDefault(x => x.SongId == song.Id);
                     if (favs != null) {
                         return "Song can not be deleted while it is in favourites";
                     }

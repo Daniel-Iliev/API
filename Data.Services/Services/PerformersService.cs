@@ -141,8 +141,7 @@ namespace Data.Services.Services
                 {
                     var data = new Performer()
                     {
-                        Name = performer.Name,
-                        CreatedAt = DateTime.Now
+                        Name = performer.Name
                     };
                     applicationDb.Performers.Add(data);
                     applicationDb.SaveChanges();
@@ -160,7 +159,6 @@ namespace Data.Services.Services
                 {
 
                     findPerformer.Name = performer.Name;
-                    findPerformer.ModifiedAt = DateTime.Now;
                     applicationDb.SaveChanges();
                     return "Performer " + '"' + performer.Name + '"' + " has been updated succesfully";
                 }
@@ -174,10 +172,11 @@ namespace Data.Services.Services
             using (applicationDb)
             {
                 var performer = applicationDb.Performers.FirstOrDefault(x => x.Name == performerName);
-                var song = applicationDb.Songs.FirstOrDefault(x => x.PerformerId == performer.Id);
-                var album = applicationDb.Albums.FirstOrDefault(x => x.PerformerId == performer.Id);
+                
                 if (performer != null)
                 {
+                    var song = applicationDb.Songs.FirstOrDefault(x => x.PerformerId == performer.Id);
+                    var album = applicationDb.Albums.FirstOrDefault(x => x.PerformerId == performer.Id);
                     if (album != null)
                     {
                        

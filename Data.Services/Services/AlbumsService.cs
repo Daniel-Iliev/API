@@ -233,8 +233,7 @@ namespace Data.Services.Services
                         {
                             Name = album.Name,
                             YearReleased = album.YearReleased,
-                            PerformerId = performer.Id,
-                            CreatedAt = DateTime.Now
+                            PerformerId = performer.Id
                         };
                         applicationDb.Albums.Add(data);
                         applicationDb.SaveChanges();
@@ -291,7 +290,6 @@ namespace Data.Services.Services
                         findalbum.Name = album.Name;
                         findalbum.PerformerId = performer.Id;
                         findalbum.YearReleased = album.YearReleased;
-                        findalbum.ModifiedAt = DateTime.Now;
                         applicationDb.SaveChanges();
                         return "Album " + '"' + albumName + '"' + " has been updated succesfully";
                     }
@@ -305,10 +303,11 @@ namespace Data.Services.Services
             using (applicationDb)
             {
                 var album = applicationDb.Albums.FirstOrDefault(x => x.Name == albumName);
-                var songs = applicationDb.Songs.FirstOrDefault(x => x.AlbumId == album.Id);
-                var albumGenres = applicationDb.AlbumGenres.FirstOrDefault(x => x.AlbumId == album.Id);
+               
                 if (album != null)
                 {
+                    var songs = applicationDb.Songs.FirstOrDefault(x => x.AlbumId == album.Id);
+                    var albumGenres = applicationDb.AlbumGenres.FirstOrDefault(x => x.AlbumId == album.Id);
                     if (songs != null)
                     {
                         return "Album can not be deleted while it has songs";
@@ -317,7 +316,7 @@ namespace Data.Services.Services
                     {
                         return "Album can not be deleted while it has a genre";
                     }
-                    applicationDb.Remove(album);
+                    applicationDb.Albums.Remove(album);
                     applicationDb.SaveChanges();
                     return "Album " + '"' + albumName + '"' + " has been deleted succesfully";
                 }
@@ -325,6 +324,30 @@ namespace Data.Services.Services
             }
         }
 
+        public string DeleteAlbumGenre(string albumName,string genreName)
+        {
+            using (applicationDb)
+            {
+                var album = applicationDb.Albums.FirstOrDefault(x => x.Name == albumName);
+                var genre = applicationDb.Genres.FirstOrDefault(x => x.Name == genreName);
+                if (album != null)
+                {
+                    if (genre != null)
+                    {
+                        var albumGenre = applicationDb.AlbumGenres.FirstOrDefault(x => x.AlbumId == album.Id);
+                        if (albumGenre != null)
+                        {
+                            applicationDb.AlbumGenres.Remove(albumGenre);
+                            applicationDb.SaveChanges();
+                            return "Genre " + '"' + genreName + '"' + " has been succesfully removed from Album " + '"' + albumName + '"';
+                        }
+                        return "Album " + '"' + albumName + '"' + " does not have Genre" + '"' + genreName + '"';
+                    }
+                    return "Genre " + '"' + genreName + '"' + " does not exist";
 
+                }
+                return "Album " + '"' + albumName + '"' + " does not exist";
+            }
+        }
     }
 }

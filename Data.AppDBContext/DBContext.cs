@@ -57,7 +57,7 @@ namespace Data.AppDBContext
                     Id=Guid.NewGuid().ToString(),
                     Username="George",
                     Password="havHcBwB/HJMHdkrqDZJPUixI7JqFX5DBzeLyfR2GPkRAlTb0oZ6WffOhY9S4L2LtK7a+C6LJ4Ry6ErSS7f2vw==",
-                    Role = "User",
+                    Role = "Moderator",
                     CreatedAt=DateTime.Now
                 },
                 new User()

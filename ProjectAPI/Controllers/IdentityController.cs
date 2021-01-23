@@ -19,7 +19,7 @@ namespace MusicAPI.Controllers
 
         }
         [Route("register")]
-        [HttpGet]
+        [HttpPost]
         public IActionResult Register(RegisterModel model)
         {
             var token = _service.Register(model);
@@ -70,15 +70,15 @@ namespace MusicAPI.Controllers
             return Ok(token);
         }
         [Authorize]
-        [Route("deleteacc")]
+        [Route("deleteaccount")]
         [HttpDelete]
-        public IActionResult DeleteAcc(string password)
+        public IActionResult DeleteAccount(string password)
         {
             string username;
             var identity = HttpContext.User.Identity as ClaimsIdentity;
 
             username = identity.Name;
-            string token = _service.ChangeUsername(password,username);
+            string token = _service.DeleteAccount(password,username);
 
 
             return Ok(token);
