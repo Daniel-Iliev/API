@@ -17,33 +17,28 @@ namespace MusicAPI.Controllers
     [ApiController]
     public class GenresController : ControllerBase
     {
-        private IWebHostEnvironment webHostEnvironment;
-        private IConfiguration _configuration;
         private GenresService _service;
 
-        public GenresController(IWebHostEnvironment env, IConfiguration configuration, GenresService service)
+        public GenresController( GenresService service)
         {
-            webHostEnvironment = env;
-
-            _configuration = configuration;
             _service = service;
 
         }
         [Authorize]
         [Route("getall")]
         [HttpGet]
-        public IActionResult GetAll (string order,bool decending)
+        public IActionResult GetAll (string order,bool descending)
         {
-            return Ok(_service.GetAll(order,decending));
+            return Ok(_service.GetAll(order,descending));
         }
         [Route("addgenre")]
-        [Authorize(Roles = "Moderator,Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         [HttpPost]
         public IActionResult AddGenre(GenrePost  genre)
         {
             return Ok(_service.AddGenre(genre));
         }
-        [Authorize(Roles = "Moderator,Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         [Route("updategenre")]
         [HttpPost]
         public IActionResult UpdateGenre(string name, GenrePost genre)
@@ -51,7 +46,7 @@ namespace MusicAPI.Controllers
             return Ok(_service.UpdateGenre(name,genre));
         }
         
-        [Authorize(Roles = "Moderator,Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         [Route("deletegenre")]
         [HttpDelete]
         public IActionResult DeleteGenre(string genreName)

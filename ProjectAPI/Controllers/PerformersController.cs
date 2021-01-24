@@ -16,33 +16,28 @@ namespace MusicAPI.Controllers
     [ApiController]
     public class PerformersController : ControllerBase
     {
-        private IWebHostEnvironment webHostEnvironment;
-        private IConfiguration _configuration;
         private PerformersService _service;
 
-        public PerformersController(IWebHostEnvironment env, IConfiguration configuration, PerformersService service)
+        public PerformersController( PerformersService service)
         {
-            webHostEnvironment = env;
-
-            _configuration = configuration;
             _service = service;
 
         }
         [Authorize]
         [Route("getall")]
         [HttpGet]
-        public IActionResult GetAll(string order, bool decending)
+        public IActionResult GetAll(string order, bool descending)
         {
-            return Ok(_service.GetAll(order, decending));
+            return Ok(_service.GetAll(order, descending));
         }
         [Route("addperformer")]
-        [Authorize(Roles = "Moderator,Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         [HttpPost]
         public IActionResult AddPerformer(PerformerPost performer)
         {
             return Ok(_service.AddPerformer(performer));
         }
-        [Authorize(Roles = "Moderator,Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         [Route("updateperformer")]
         [HttpPost]
         public IActionResult UpdatePerformer(string name, PerformerPost performer)
@@ -50,7 +45,7 @@ namespace MusicAPI.Controllers
             return Ok(_service.UpdatePerformer(name,performer));
         }
 
-        [Authorize(Roles = "Moderator,Admin")]
+        [Authorize(Roles = "Moderator, Admin")]
         [Route("deleteperformer")]
         [HttpDelete]
         public IActionResult DeletePerformer(string performerName)

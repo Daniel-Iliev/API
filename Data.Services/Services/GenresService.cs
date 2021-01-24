@@ -18,12 +18,12 @@ namespace Data.Services.Services
         {
             this.applicationDb = applicationDb;
         }
-        public List<GenreDto> GetAll(string order, bool decending = false)
+        public List<GenreDto> GetAll(string order, bool descending = false)
         {
             using (applicationDb)
             {
                 var genres = new List<GenreDto>();
-                if (decending == true)
+                if (descending == true)
                 {
                     switch (order)
                     {

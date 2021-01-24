@@ -18,12 +18,12 @@ namespace Data.Services.Services
         {
             this.applicationDb = applicationDb;
         }
-        public List<PerformerDto> GetAll(string order, bool decending = false)
+        public List<PerformerDto> GetAll(string order, bool descending = false)
         {
             using (applicationDb)
             {
                 var performers = new List<PerformerDto>();
-                if (decending == true)
+                if (descending == true)
                 {
                     switch (order)
                     {

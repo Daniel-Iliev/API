@@ -18,12 +18,12 @@ namespace Data.Services.Services
         {
             this.applicationDb = applicationDb;
         }
-        public List<UserDto> GetAll(string order, bool decending = false)
+        public List<UserDto> GetAll(string order, bool descending = false)
         {
             using (applicationDb)
             {
                 var users = new List<UserDto>();
-                if (decending == true)
+                if (descending == true)
                 {
                     switch (order)
                     {

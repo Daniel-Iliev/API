@@ -17,26 +17,21 @@ namespace MusicAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private IWebHostEnvironment webHostEnvironment;
-        private IConfiguration _configuration;
+      
         private UsersService _service;
 
-        public UsersController(IWebHostEnvironment env, IConfiguration configuration, UsersService service)
+        public UsersController( UsersService service)
         {
-            webHostEnvironment = env;
-
-            _configuration = configuration;
             _service = service;
-
         }
 
 
         [Authorize(Roles = "Admin")]
         [Route("getall")]
         [HttpGet]
-        public IActionResult GetAll(string order,bool decending)
+        public IActionResult GetAll(string order,bool descending)
         {
-            return Ok(_service.GetAll(order,decending));
+            return Ok(_service.GetAll(order,descending));
         }
 
 
@@ -47,8 +42,8 @@ namespace MusicAPI.Controllers
         {
             string username;
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-
             username = identity.Name;
+
             return Ok(_service.GetFavourites(username));
         }
 
@@ -60,8 +55,8 @@ namespace MusicAPI.Controllers
         {
             string username;
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-
             username = identity.Name;
+
             return Ok(_service.AddFavourite(username,songName));
         }
 
@@ -82,7 +77,6 @@ namespace MusicAPI.Controllers
         {
             string username;
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-
             username = identity.Name;
 
             return Ok(_service.DeleteFavourite(username,songName));
